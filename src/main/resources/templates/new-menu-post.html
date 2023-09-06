@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+</head>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+    body, h1, h2, h3, p, ul, li {
+        margin: 0;
+        padding: 0;
+    }
+    /* Header styles */
+    .header {
+        background-color: transparent; /* 투명한 배경 */
+        /*position: fixed;*/
+        width: 100%;
+    }
+
+    /* Logo styles */
+    .logo {
+        position: absolute;
+        top: 25px;
+        left: 20px;
+        color: #333333;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    /* Menu styles */
+    .menu {
+        background-color: #ffffff; /* 헤더 바의 배경색 */
+        padding: 30px 0; /* 높이를 높임 */
+        border-bottom: 1px solid #e0e0e0;
+        text-align: right;
+    }
+
+    .menu ul {
+        list-style: none;
+    }
+
+    .menu ul li {
+        display: inline-block;
+        margin-right: 80px; /* 메뉴 간격을 조정 */
+    }
+
+    .menu ul li a {
+        text-decoration: none;
+        color: #333333;
+        font-weight: bold;
+    }
+    /* Hover effect */
+    .menu ul li a:hover {
+        color: #009aff;
+    }
+
+    /*메뉴 소개 스타일링*/
+    .menu-addition-description {
+        background-color: #ffffff;
+        color: #000000;
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        margin: 20px auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-addition-description h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .menu-addition-description p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .menu-addition-description ul {
+        margin-left: 20px;
+    }
+    .menu-addition-description ul li {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    /*메뉴 추가 박스 스타일링*/
+    .custom-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: black;
+        color: #ffffff;
+        font-size: 18px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        float: right;
+        margin-right: 3%;
+    }
+    .custom-button:hover {
+        background-color: #0078d4;
+    }
+
+
+    /*MenuBox*/
+    #product-container{
+        width: 90%;
+        margin: auto;
+    }
+    .product-box {
+        border: 1px solid #0b2e13;
+        color: black;
+        border-radius: 3px;
+        padding: 10px;
+        width: 14%;
+        margin: 10px;
+        display: inline-block;
+    }
+
+    input[type="file"], input[type="text"] {
+        display: block;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+    #add-product-button {
+        display: block;
+        margin-top: 10px;
+    }
+    .delete-btn{
+        float: right;
+        color: white;
+        background: black;
+        border: none;
+        border-radius: 3px;
+    }
+    .submit-btn-box{
+        display: none;
+    }
+</style>
+<body>
+<header class="header">
+    <div class="logo">KioskEase Pro</div>
+    <nav class="menu">
+        <ul>
+            <li><a href="#">메뉴1</a></li>
+            <li><a href="#">메뉴2</a></li>
+            <li><a href="#">메뉴3</a></li>
+            <li><a href="#">메뉴4</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="menu-addition-description">
+    <h1>새로운 메뉴 추가</h1>
+    <p>메뉴 추가 버튼을 클릭하면 새로운 메뉴 항목을 손쉽게 추가할 수 있는 상자가 나타납니다. 아래의 입력란을 사용하여 메뉴 항목의 세부 정보를 정확하게 입력해주세요.</p>
+
+    <ul>
+        <li><strong>이미지:</strong> 이미지를 삽입해주세요. [ 가능하면 이미지의 크기는 100 x 100으로 통일해주세요 ]</li>
+        <li><strong>가격:</strong> 메뉴 항목의 가격을 입력해주세요. [EX : 5000]</li>
+        <li><strong>카테고리:</strong> 메뉴 항목을 속하는 카테고리를 선택하거나 입력해주세요.[EX : 커피]</li>
+    </ul>
+
+    <p>메뉴 항목을 추가하고 나면, 아래에 목록으로 정리되어 편리하게 확인할 수 있습니다. 추가하려는 메뉴 항목의 정보를 정확하게 입력하여 메뉴판을 업데이트해보세요.</p>
+</div>
+<div>
+    <button id="add-product-button" class="custom-button">메뉴 추가</button>
+</div>
+<form id="product-container">
+
+</form>
+<div class="submit-btn-box">
+    <button id="submit-btn" class="custom-button">메뉴 파일 다운로드</button>
+</div>
+    <script>
+        $(document).ready(function() {
+            let menuCount = 0;
+            // hideOfSubmitBtn 함수 정의
+            function hideOfSubmitBtn(menuCount){
+                if (menuCount > 0){
+                    $('.submit-btn-box').css({
+                        "display": "block",
+                    });
+                }
+                else{
+                    $('.submit-btn-box').css({
+                        "display": "none",
+                    });
+                }
+            }
+            // "+" 버튼을 클릭하면 새로운 상품 정보 입력란을 추가합니다.
+            $("#add-product-button").click(function() {
+                const container = $("#product-container");
+
+                // 상품 정보 입력란을 생성하고 추가합니다.
+                const productBox = $("<div>").addClass("product-box");
+                productBox.append('<img src="" alt="상품 이미지" width="100">'); // 이미지 박스 추가
+                productBox.append("<input type='file' placeholder='이미지 업로드' name='imageFile' id='imageFile'>");
+                productBox.append("<input type='text' placeholder='상품명' name='name' id='name' class='name'>");
+                productBox.append("<input type='text' placeholder='가격' name='price' id='price' class='price'>");
+                productBox.append("<input type='text' placeholder='카테고리'name='category' id='category' class='category'>");
+                productBox.append("<input class='delete-btn' type='button' placeholder='삭제' value='삭제'/>");
+
+                // 파일 추가 메서드
+                productBox.find('input[type="file"]').change(function () {
+                    const fileInput = $(this)[0];
+                    const imageBox = $(this).siblings('img');
+                    if (fileInput.files && fileInput.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            imageBox.attr('src', e.target.result);
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                });
+                productBox.hide().appendTo(container).fadeIn(600);
+                menuCount++;
+                hideOfSubmitBtn(menuCount);
+
+                productBox.find('.delete-btn').on("click", function () {
+                    // 버튼 요소 자체를 제거
+                    $(this).parent().fadeOut(400, function() {
+                        $(this).remove(); // 애니메이션이 완료된 후에 요소를 제거합니다.
+                    });
+                    menuCount--;
+                    hideOfSubmitBtn(menuCount);
+                });
+
+            });
+
+            // "+" 버튼 클릭 횟수를 전달하기 위한 클릭 이벤트 핸들러
+            $("#submit-btn").on("click", function () {
+                // 클릭 횟수를 매개변수로 전달
+                sendTextData(menuCount);
+                sendFileData();
+            });
+
+            // 실제 파일 텍스트를 전송하는 함수
+            function sendTextData(menuCount) {
+                // FormData 객체 생성
+                let text = ""; // 변수를 빈 문자열로 초기화
+
+                for (let i = 0; i < menuCount; i++) {
+                    // 각 필드에서 값을 가져와서 text에 추가
+                    text += `${$(".name")[i].value} / ${$(".price")[i].value} / ${$(".category")[i].value} \n`;
+                }
+
+                let directoryOBJ = {
+                    text: text,
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/menu/new-post-text",
+                    data: JSON.stringify(directoryOBJ),
+                    contentType: "application/json", // 올바른 contentType 설정
+                    success: function (result) {
+                        console.log(result);
+                        alert(result);
+                    },
+                    error: function (request, status, error) {
+                        alert("code" + request.status + "\n" + "message" + request.responseText + "\n" + "error" + error);
+                    }
+                });
+            }
+
+            function sendFileData() {
+                let formData = new FormData();
+                const fileInputs = $('.product-box input[type="file"]');
+
+                fileInputs.each(function(index, input) {
+                    let files = input.files;
+                    for (let i = 0; i < files.length; i++) { // 파일 수만큼 반복
+                        let file = files[i];
+                        console.log(file);
+                        formData.append("files", file);
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/menu/new-post-file",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        console.log(result);
+                        alert(result);
+                    },
+                    error: function (request, status, error) {
+                        alert("code" + request.status + "\n" + "message" + request.responseText + "\n" + "error" + error);
+                    }
+                });
+            }
+
+        });
+
+    </script>
+</body>
+
+</html>
