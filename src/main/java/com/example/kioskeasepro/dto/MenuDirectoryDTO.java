@@ -2,13 +2,19 @@ package com.example.kioskeasepro.dto;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.web.multipart.MultipartFile;
 
 @ToString
 @Data
 public class MenuDirectoryDTO {
 
-    private String text;
-
-    private MultipartFile menuImage;
+    private Long id;
+    //디렉토리 ID
+    private String shopName;
+    //상호명
+    private String menuText;
+    //메뉴 텍스트
+    private String filePath;
+    //파일 저장 위치
+    private int menuCount;
+    //메뉴 개수
 }

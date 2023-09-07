@@ -1,0 +1,41 @@
+package com.example.kioskeasepro.entity;
+
+import com.example.kioskeasepro.dto.MenuDirectoryDTO;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.ToString;
+
+import java.util.StringTokenizer;
+
+@Entity
+@Table(name = "menu_directory")
+@Data
+@ToString
+public class MenuDirectory {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "fileText")
+    private String menuText; // 파일안에 들어갈 이름
+
+    @Column(name = "file_path")
+    private String filePath; // 파일 경로
+
+    @Column(name = "menuCount")
+    private int menuCount; // 메뉴 개수
+
+    //private String shopName; //가게 이름
+    public static MenuDirectory convertToMenuDirectory(MenuDirectoryDTO menuDirectoryDTO) {
+        MenuDirectory menuDirectory = new MenuDirectory();
+
+        menuDirectory.setMenuText(menuDirectoryDTO.getMenuText());
+        menuDirectory.setFilePath(menuDirectoryDTO.getFilePath());
+        menuDirectory.setMenuCount(menuDirectoryDTO.getMenuCount());
+
+        return menuDirectory;
+    }
+
+
+}

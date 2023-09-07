@@ -1,7 +1,10 @@
 package com.example.kioskeasepro.service;
 
 
-import com.example.kioskeasepro.dto.MenuDTO;
+import com.example.kioskeasepro.dto.MenuDirectoryDTO;
+import com.example.kioskeasepro.entity.MenuDirectory;
+import com.example.kioskeasepro.repository.MenuDirectoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,22 +13,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Service
+@RequiredArgsConstructor
 public class MenuDirectoryService {
-    
+
+    private final MenuDirectoryRepository menuDirectoryRepository;
     //텍스트 파일 생성
-    public void saveToFile(String data,String filePath) throws IOException {
+    public void saveToFile(String data, String filePath) throws IOException {
         File file = new File(filePath);
+
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
 
         try (FileWriter fileWriter = new FileWriter(file)){
             fileWriter.write(data);
         }
+
     }
 
     // 여러 이미지 파일을 한꺼번에 처리
     public void saveMultipleImageFiles(List<MultipartFile> imageFiles, String destinationDirectory) throws IOException {
-
         File directory = new File(destinationDirectory);
 
         if (!directory.exists()) {
@@ -39,7 +50,7 @@ public class MenuDirectoryService {
             // 파일 이름 형식을 생성
             String fileName = (i + 1) + "." + originalFileName;
 
-            // 저장할 이미지 파일의 경로를 지정함
+            // 저장할 이미지 파일의 경로
             String destinationPath = Paths.get(destinationDirectory, fileName).toString();
 
             // 이미지 파일을 저장하기 위한 File
@@ -49,5 +60,17 @@ public class MenuDirectoryService {
             file.transferTo(destinationFile);
         }
     }
+    public Long findLastId() {
+        return menuDirectoryRepository.findLastId();
+    }
 
+    public void saveMenuDirectory(MenuDirectoryDTO menuDirectoryDTO){
+        MenuDirectory menuDirectory = MenuDirectory.convertToMenuDirectory(menuDirectoryDTO);
+
+        menuDirectoryRepository.save(menuDirectory);
+    }
+    public int countMenus(String menuText) {
+        StringTokenizer tokenizer = new StringTokenizer(menuText, "\n");
+        return tokenizer.countTokens();
+    }
 }
