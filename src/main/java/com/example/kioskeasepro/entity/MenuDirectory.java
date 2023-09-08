@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 public class MenuDirectory {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1씩 자동 증가로 수정
     private Long id;
 
     @Column(name = "fileText")
@@ -30,8 +30,12 @@ public class MenuDirectory {
     public static MenuDirectory convertToMenuDirectory(MenuDirectoryDTO menuDirectoryDTO) {
         MenuDirectory menuDirectory = new MenuDirectory();
 
+        menuDirectory.setId(null);
+
         menuDirectory.setMenuText(menuDirectoryDTO.getMenuText());
+
         menuDirectory.setFilePath(menuDirectoryDTO.getFilePath());
+
         menuDirectory.setMenuCount(menuDirectoryDTO.getMenuCount());
 
         return menuDirectory;

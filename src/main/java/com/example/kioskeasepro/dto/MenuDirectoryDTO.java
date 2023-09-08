@@ -8,6 +8,7 @@ import lombok.ToString;
 public class MenuDirectoryDTO {
 
     private Long id;
+
     //디렉토리 ID
     private String shopName;
     //상호명

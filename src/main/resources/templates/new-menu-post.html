@@ -234,6 +234,8 @@
                 // 클릭 횟수를 매개변수로 전달
                 sendTextData(menuCount);
                 sendFileData();
+                //5초뒤에 다운로드 진행
+                downloadFolder();
             });
 
             // 실제 파일 텍스트를 전송하는 함수
@@ -294,6 +296,13 @@
                 });
             }
         });
+
+        function downloadFolder() {
+            setTimeout(function() {
+                location.href = "http://localhost:8080/menu/download-folder";
+            }, 5000); // 5초를 밀리초로 표시
+        }
+
     </script>
 </body>
 

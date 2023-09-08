@@ -25,6 +25,7 @@ public class MenuDirectoryService {
         File file = new File(filePath);
 
         File parentDirectory = file.getParentFile();
+
         if (!parentDirectory.exists()) {
             parentDirectory.mkdirs();
         }
@@ -60,10 +61,6 @@ public class MenuDirectoryService {
             file.transferTo(destinationFile);
         }
     }
-    public Long findLastId() {
-        return menuDirectoryRepository.findLastId();
-    }
-
     public void saveMenuDirectory(MenuDirectoryDTO menuDirectoryDTO){
         MenuDirectory menuDirectory = MenuDirectory.convertToMenuDirectory(menuDirectoryDTO);
 
