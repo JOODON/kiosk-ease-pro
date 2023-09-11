@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Display</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .header {
+            background-color: transparent;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu-list {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .menu-container {
+            width: 100%;
+        }
+
+        .menu-item {
+            display: inline-block;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 230px;
+            text-align: center;
+            margin: 10px; /* 좌우 간격을 조절하여 간격 설정 */
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .menu-item h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .menu-item p {
+            font-size: 16px;
+            color: #777;
+        }
+
+        .menu-item button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: black;
+            color: #ffffff;
+            font-size: 13px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            float: right;
+            margin-right: 3%;
+        }
+
+        .menu-item span {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="header">[ COFFEE SHOP ] 메뉴</div>
+<div class="menu-container" id="menu-container">
+    <div class="menu-list" id="menu-list">
+
+    </div>
+</div>
+
+<script>
+    // Sample data (you can replace this with actual data)
+    const menuData = [
+        {
+            name: "아메리카노1",
+            price: 4000,
+            description: "신선한 에스프레소와 뜨거운 물을 섞은 커피",
+            image: "main-banner-user.jpg"
+        },
+        {
+            name: "아메리카노2",
+            price: 4000,
+            description: "신선한 에스프레소와 뜨거운 물을 섞은 커피",
+            image: "americano.jpg"
+        },
+        {
+            name: "아메리카노3",
+            price: 4000,
+            description: "신선한 에스프레소와 뜨거운 물을 섞은 커피",
+            image: "americano.jpg"
+        },
+        {
+            name: "아메리카노4",
+            price: 4000,
+            description: "신선한 에스프레소와 뜨거운 물을 섞은 커피",
+            image: "americano.jpg"
+        },    {
+            name: "아메리카노5",
+            price: 4000,
+            description: "신선한 에스프레소와 뜨거운 물을 섞은 커피",
+            image: "americano.jpg"
+        },
+        {
+            name: "아메리카노6",
+            price: 4000,
+            description: "신선한 에스프레소와 뜨거운 물을 섞은 커피",
+            image: "americano.jpg"
+        },
+
+        // 나머지 메뉴 항목들도 추가해주세요.
+    ];
+    let currentIndex = 0;
+
+    function createMenuItems() {
+        const menuList = $("#menu-list");
+        menuList.empty();
+        //메뉴를 갱신하기전에 한번 지워주기
+
+        // 메뉴 항목들을 동적으로 생성하며 fadeIn 효과 적용
+        for (let i = 0; i < 4; i++) {
+            const menuItem = menuData[currentIndex]; //menuItem 배열의 시작값을 설정해둠
+
+            //HTML 추가 부분
+            const itemDiv = $("<div>").addClass("menu-item");
+            const itemImage = $("<img>").attr("src", menuItem.image).attr("alt", menuItem.name);
+            const itemName = $("<h3>").text(menuItem.name);
+            const itemPrice = $("<span>").text(`${menuItem.price}원`);
+            const itemDescription = $("<p>").text(menuItem.description);
+            const itemReplaceBtn = $("<button>").text("수정");
+
+            itemDiv.append(itemImage, itemName, itemPrice, itemDescription, itemReplaceBtn);
+            menuList.append(itemDiv);
+
+            // fadeIn 효과 적용
+            itemDiv.hide().fadeIn(2000);
+
+            // currentIndex 를 증가시키고, 마지막 항목일 경우 처음 항목으로 돌아가게끔 처리
+            currentIndex++;
+            if (currentIndex >= menuData.length) {
+                currentIndex = 0;
+            }
+
+        }
+    }
+
+    $(document).ready(function () {
+        createMenuItems();
+
+        // 메뉴 항목을 일정 시간마다 갱신
+        setInterval(function () {
+            // fadeIn 효과가 끝나면 createMenuItems 함수를 호출하여 새로운 항목을 추가하고,
+            // 새로운 항목이 추가되면 이전 항목을 fadeOut 효과로 서서히 사라지게 합니다.
+            $("#menu-list .menu-item").fadeOut(2000, function () {
+                createMenuItems();
+                $(this).remove(); // 이전 항목을 삭제합니다.
+            });
+        }, 7000); // 3초마다 변경
+    });
+</script>
+
+<!-- HTML 코드는 이전과 동일 -->
+</body>
+</html>
