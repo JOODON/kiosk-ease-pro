@@ -17,20 +17,21 @@ public class MenuDirectory {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 1씩 자동 증가로 수정
     private Long id;
 
-    @Column(name = "fileText")
+    @Column(name = "STORE-NAME")
+    private String storeName;
+
+    @Column(name = "FILE-TEXT")
     private String menuText; // 파일안에 들어갈 이름
 
-    @Column(name = "file_path")
+    @Column(name = "FILE-PATH")
     private String filePath; // 파일 경로
 
-    @Column(name = "menuCount")
+    @Column(name = "MENU-COUNT")
     private int menuCount; // 메뉴 개수
-
-    //private String shopName; //가게 이름
     public static MenuDirectory convertToMenuDirectory(MenuDirectoryDTO menuDirectoryDTO) {
         MenuDirectory menuDirectory = new MenuDirectory();
 
-        menuDirectory.setId(null);
+        menuDirectory.setStoreName(menuDirectoryDTO.getStoreName());
 
         menuDirectory.setMenuText(menuDirectoryDTO.getMenuText());
 
@@ -40,6 +41,5 @@ public class MenuDirectory {
 
         return menuDirectory;
     }
-
 
 }

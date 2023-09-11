@@ -1,6 +1,7 @@
 package com.example.kioskeasepro.controller;
 
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,10 +20,10 @@ import java.nio.file.Files;
 @RequestMapping("/menu")
 public class FolderDownloadController {
     @GetMapping("/download-folder")
-    public ResponseEntity<Resource> downloadFolder() throws IOException {
-        String shopName = "CoffeeShop";
+    public ResponseEntity<Resource> downloadFolder(HttpSession httpSession) throws IOException {
+        String storeName = (String) httpSession.getAttribute("store");
         // 압축된 폴더 경로 (압축 파일 경로)
-        String zipFilePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\["+ shopName +"]menuFolder.zip";
+        String zipFilePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\["+ storeName +"]menuFolder.zip";
 
         // 파일을 읽어서 ByteArrayResource 로 변환
         File zipFile = new File(zipFilePath);
@@ -31,7 +32,10 @@ public class FolderDownloadController {
             ByteArrayResource resource = new ByteArrayResource(data);
 
             HttpHeaders headers = new HttpHeaders();
-            String filename = "[" + shopName + "]menuFolder.zip";
+
+            String filename = "[" + storeName + "]menuFolder.zip";
+            filename = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
+            //한글 인코딩 설정
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename);
 
             return ResponseEntity.ok()

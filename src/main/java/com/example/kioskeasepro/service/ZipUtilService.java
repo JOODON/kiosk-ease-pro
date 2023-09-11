@@ -57,11 +57,10 @@ public class ZipUtilService {
         }
         fis.close(); // FileInputStream 닫기
     }
-    public void downloadZipFile(){
+    public void downloadZipFile(String storeName){
         ZipUtilService zipUtilService = new ZipUtilService();
-        String shopName = "CoffeeShop";
-        String sourceFolderPath = "C:/SpringBoot/kiosk-ease-pro/src/main/resources/static/" + shopName;
-        String zipFilePath = "C:/SpringBoot/kiosk-ease-pro/src/main/resources/static/[" + shopName + "]menuFolder.zip";
+        String sourceFolderPath = "C:/SpringBoot/kiosk-ease-pro/src/main/resources/static/" + storeName;
+        String zipFilePath = "C:/SpringBoot/kiosk-ease-pro/src/main/resources/static/[" + storeName + "]menuFolder.zip";
 
         try {
             zipUtilService.zipFolder(sourceFolderPath, zipFilePath);

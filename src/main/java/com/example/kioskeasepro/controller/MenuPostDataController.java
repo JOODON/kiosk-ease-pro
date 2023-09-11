@@ -4,6 +4,7 @@ package com.example.kioskeasepro.controller;
 import com.example.kioskeasepro.dto.MenuDirectoryDTO;
 import com.example.kioskeasepro.service.MenuDirectoryService;
 import com.example.kioskeasepro.service.ZipUtilService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,34 +27,41 @@ public class MenuPostDataController {
     //파일의 경로 와 파일의 이름을 저장하기 위한 DTO 생성
     private final ZipUtilService zipUtilService;
     @RequestMapping(value = "/new-post-text",method = RequestMethod.POST)
-    public ResponseEntity<String> processTextData(@RequestBody MenuDirectoryDTO menuDirectoryDTO) throws IOException {
+    public ResponseEntity<String> processTextData(@RequestBody MenuDirectoryDTO menuDirectoryDTO, HttpSession httpSession) throws IOException {
         logger.info("Processing Text Data");
 
         //상호명 예정
-        String shopName = "CoffeeShop";
+        String storeName = menuDirectoryDTO.getStoreName();
 
-        String fileSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+shopName+"\\menu\\menu.txt";
+        httpSession.setAttribute("store",storeName);
+        //세션에 값을 저장
+
+        String fileSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+storeName+"\\menu\\menu.txt";
 
         menuDirectoryService.saveToFile(menuDirectoryDTO.getMenuText(),fileSavePath);
 
-        menuDirectoryDTO.setShopName(shopName);
         menuDirectoryDTO.setMenuCount(menuDirectoryService.countMenus(menuDirectoryDTO.getMenuText()));
         menuDirectoryDTO.setFilePath(fileSavePath);
 
+        //세션 값을 저장
+        
         menuDirectoryService.saveMenuDirectory(menuDirectoryDTO);
-        //DB에 저장 따라서 여기서 시간이 더걸림?
+        //DB에 저장 따라서 여기서 시간이 더걸리기 떄문에 이 작업이 끝나면 다운로드
 
-        zipUtilService.downloadZipFile();
+        zipUtilService.downloadZipFile(menuDirectoryDTO.getStoreName());
+        //다운로드
+
+        menuDirectoryService.deleteFolderHandler(storeName);
+        //파일을 지워주기
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
     @PostMapping(value = "/new-post-file")
-    public ResponseEntity<String> processFileData(@RequestParam("files") List<MultipartFile> files) throws IOException {
+    public ResponseEntity<String> processFileData(@RequestParam("files") List<MultipartFile> files,HttpSession httpSession) throws IOException {
         logger.info("Processing file data");
         //로그
-
-        String shopName = "CoffeeShop";
+        String shopName = (String) httpSession.getAttribute("store");
         //필드 컬럼 가지고 오기
 
         String imageSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+ shopName +"\\menuImage";

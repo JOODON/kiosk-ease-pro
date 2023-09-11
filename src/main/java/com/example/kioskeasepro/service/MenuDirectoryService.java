@@ -5,6 +5,7 @@ import com.example.kioskeasepro.dto.MenuDirectoryDTO;
 import com.example.kioskeasepro.entity.MenuDirectory;
 import com.example.kioskeasepro.repository.MenuDirectoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,13 +62,33 @@ public class MenuDirectoryService {
             file.transferTo(destinationFile);
         }
     }
+
+
     public void saveMenuDirectory(MenuDirectoryDTO menuDirectoryDTO){
         MenuDirectory menuDirectory = MenuDirectory.convertToMenuDirectory(menuDirectoryDTO);
 
         menuDirectoryRepository.save(menuDirectory);
     }
+
     public int countMenus(String menuText) {
         StringTokenizer tokenizer = new StringTokenizer(menuText, "\n");
         return tokenizer.countTokens();
+    }
+
+
+
+    public boolean deleteFolder(String folderPath) throws IOException {
+        File folder = new File(folderPath);
+        try {
+            FileUtils.deleteDirectory(folder);
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    public void deleteFolderHandler(String shopName) throws IOException {
+        String deleteFolderPath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+shopName;
+        deleteFolder(deleteFolderPath);
     }
 }
