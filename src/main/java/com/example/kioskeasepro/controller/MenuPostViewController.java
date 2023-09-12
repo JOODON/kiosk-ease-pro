@@ -12,4 +12,5 @@ public class MenuPostViewController {
 
         return "menu_post/new-menu-post";
     }
+
 }

@@ -27,24 +27,23 @@ public class MenuPostDataController {
     //파일의 경로 와 파일의 이름을 저장하기 위한 DTO 생성
     private final ZipUtilService zipUtilService;
     @RequestMapping(value = "/new-post-text",method = RequestMethod.POST)
-    public ResponseEntity<String> processTextData(@RequestBody MenuDirectoryDTO menuDirectoryDTO, HttpSession httpSession) throws IOException {
+    public ResponseEntity<String> processTextData(@RequestBody MenuDirectoryDTO menuDirectoryDTO) throws IOException {
         logger.info("Processing Text Data");
 
         //상호명 예정
         String storeName = menuDirectoryDTO.getStoreName();
 
-        httpSession.setAttribute("store",storeName);
-        //세션에 값을 저장
+        System.out.println(storeName);
 
         String fileSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+storeName+"\\menu\\menu.txt";
 
         menuDirectoryService.saveToFile(menuDirectoryDTO.getMenuText(),fileSavePath);
+        //파일 데이터를 생성
 
         menuDirectoryDTO.setMenuCount(menuDirectoryService.countMenus(menuDirectoryDTO.getMenuText()));
         menuDirectoryDTO.setFilePath(fileSavePath);
 
         //세션 값을 저장
-        
         menuDirectoryService.saveMenuDirectory(menuDirectoryDTO);
         //DB에 저장 따라서 여기서 시간이 더걸리기 떄문에 이 작업이 끝나면 다운로드
 
@@ -58,13 +57,12 @@ public class MenuPostDataController {
     }
 
     @PostMapping(value = "/new-post-file")
-    public ResponseEntity<String> processFileData(@RequestParam("files") List<MultipartFile> files,HttpSession httpSession) throws IOException {
+    public ResponseEntity<String> processFileData(@RequestParam("files") List<MultipartFile> files,@RequestParam("storeName") String storeName) throws IOException {
         logger.info("Processing file data");
         //로그
-        String shopName = (String) httpSession.getAttribute("store");
-        //필드 컬럼 가지고 오기
 
-        String imageSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+ shopName +"\\menuImage";
+        //필드 컬럼 가지고 오기
+        String imageSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+ storeName +"\\menuImage";
         //파일 이미지 경로를 설정
 
         menuDirectoryService.saveMultipleImageFiles(files,imageSavePath);

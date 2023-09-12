@@ -179,6 +179,8 @@
         <button id="submit-btn" class="custom-button">메뉴 파일 다운로드</button>
     </div>
     <script>
+        let storeName = promptStoreName();
+
         $(document).ready(function() {
             let menuCount = 0;
             // hideOfSubmitBtn 함수 정의
@@ -236,9 +238,11 @@
 
             // "+" 버튼 클릭 횟수를 전달하기 위한 클릭 이벤트 핸들러
             $("#submit-btn").on("click", function () {
-                // 클릭 횟수를 매개변수로 전달
                 sendFileData();
+
+                // 클릭 횟수를 매개변수로 전달
                 sendTextData(menuCount);
+
                 //5초뒤에 다운로드 진행
                 downloadFolder();
             });
@@ -247,7 +251,6 @@
             function sendTextData(menuCount) {
                 // FormData 객체 생성
                 let text = ""; // 변수를 빈 문자열로 초기화
-                let storeName = promptStoreName();
                 for (let i = 0; i < menuCount; i++) {
                     // 각 필드에서 값을 가져와서 text에 추가
                     text += `${$(".name")[i].value} / ${$(".price")[i].value} / ${$(".category")[i].value} \n`;
@@ -285,7 +288,8 @@
                         formData.append("files", file);
                     }
                 });
-
+                formData.append("storeName",storeName);
+t
                 $.ajax({
                     type: "POST",
                     url: "/menu/new-post-file",
