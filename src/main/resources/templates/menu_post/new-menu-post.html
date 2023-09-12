@@ -289,7 +289,7 @@
                     }
                 });
                 formData.append("storeName",storeName);
-t
+
                 $.ajax({
                     type: "POST",
                     url: "/menu/new-post-file",
@@ -309,7 +309,7 @@ t
 
         function downloadFolder() {
             setTimeout(function() {
-                location.href = "http://localhost:8080/menu/download-folder";
+                location.href = "http://localhost:8080/menu/download-folder?storeName=" + storeName;
             }, 5000); // 5초를 밀리초로 표시
         }
         function promptStoreName() {
