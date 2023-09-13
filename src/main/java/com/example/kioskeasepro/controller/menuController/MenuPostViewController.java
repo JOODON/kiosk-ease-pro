@@ -1,4 +1,4 @@
-package com.example.kioskeasepro.controller;
+package com.example.kioskeasepro.controller.menuController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

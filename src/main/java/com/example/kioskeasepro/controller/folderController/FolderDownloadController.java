@@ -1,4 +1,4 @@
-    package com.example.kioskeasepro.controller;
+    package com.example.kioskeasepro.controller.folderController;
 
 
     import jakarta.servlet.http.HttpSession;
