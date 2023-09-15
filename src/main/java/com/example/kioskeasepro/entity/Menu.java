@@ -26,5 +26,5 @@ public class Menu {
     private String imagePath;
     //이미지 경로
 
-
+    private String storeName;
 }

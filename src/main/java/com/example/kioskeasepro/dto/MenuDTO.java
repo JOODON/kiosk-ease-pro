@@ -1,6 +1,7 @@
 package com.example.kioskeasepro.dto;
 
 
+import com.example.kioskeasepro.entity.Menu;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +18,23 @@ public class MenuDTO {
 
     private String category;
 
-    private MultipartFile imageFile; // 이미지 파일을 받을 MultipartFile 객체
+    private String StoreName;
 
+    private String description;
+
+    private int amount;
+
+    public static MenuDTO convertToMenuDTO(Menu menuEntity){
+        MenuDTO menuDTO = new MenuDTO();
+
+        menuDTO.setId(menuEntity.getId());
+        menuDTO.setName(menuEntity.getName());
+        menuDTO.setPrice(menuEntity.getPrice());
+        menuDTO.setCategory(menuEntity.getCategory());
+        menuDTO.setStoreName(menuEntity.getStoreName());
+        menuDTO.setDescription(menuEntity.getDescription());
+        menuDTO.setAmount(menuEntity.getAmount());
+
+        return menuDTO;
+    }
 }
