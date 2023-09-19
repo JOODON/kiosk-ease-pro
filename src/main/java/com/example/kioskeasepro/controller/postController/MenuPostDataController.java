@@ -1,4 +1,4 @@
-package com.example.kioskeasepro.controller.menuController;
+package com.example.kioskeasepro.controller.postController;
 
 
 import com.example.kioskeasepro.dto.MenuDirectoryDTO;

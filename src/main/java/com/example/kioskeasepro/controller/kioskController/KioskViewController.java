@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/kiosk")
 public class KioskViewController {
 
-
     @RequestMapping("/create")
     public String createNewMenuFile(){
 

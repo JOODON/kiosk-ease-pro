@@ -1,4 +1,4 @@
-package com.example.kioskeasepro.controller.menuController;
+package com.example.kioskeasepro.controller.postController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/menu")
 public class MenuPostViewController {
 
-    @RequestMapping("/new-post")
+    @RequestMapping("/new")
     public String createNewMenuFile(){
 
         return "menu_post/new-menu-post";

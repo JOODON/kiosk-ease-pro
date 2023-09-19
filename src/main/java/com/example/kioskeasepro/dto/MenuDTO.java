@@ -24,6 +24,7 @@ public class MenuDTO {
 
     private int amount;
 
+    private String image;
     public static MenuDTO convertToMenuDTO(Menu menuEntity){
         MenuDTO menuDTO = new MenuDTO();
 
@@ -34,6 +35,7 @@ public class MenuDTO {
         menuDTO.setStoreName(menuEntity.getStoreName());
         menuDTO.setDescription(menuEntity.getDescription());
         menuDTO.setAmount(menuEntity.getAmount());
+        menuDTO.setImage(menuEntity.getImagePath());
 
         return menuDTO;
     }

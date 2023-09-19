@@ -181,10 +181,10 @@
     <div class="logo">KioskEase Pro</div>
     <nav class="menu">
         <ul>
-            <li><a href="#">메뉴1</a></li>
-            <li><a href="#">메뉴2</a></li>
-            <li><a href="#">메뉴3</a></li>
-            <li><a href="#">메뉴4</a></li>
+            <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
+            <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
+            <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
+            <li><a href="#">Under development</a></li>
         </ul>
     </nav>
 </header>
@@ -210,7 +210,7 @@
         <form action="/create-kisok" method="post" enctype="multipart/form-data">
             <label for="fileInput" class="file-input-label">파일 선택</label>
             <input type="file" id="fileInput" name="zipFile" accept=".zip" class="custom-file-input">
-            <button class="custom-button" type="submit">업로드</button>
+            <button class="custom-button" type="submit">키오스크 생성하기</button>
         </form>
     </div>
 
@@ -221,6 +221,10 @@
         $('#fileInput').change(function() {
             let fileName = $(this).val().split('\\').pop(); // 파일 이름 추출
             $('#uploadedFileName').text('업로드된 파일: ' + fileName); // 파일 이름 표시
+        });
+
+        $(".custom-button").on("click",function (){
+            location.href="/kiosk/create"
         });
     });
 
