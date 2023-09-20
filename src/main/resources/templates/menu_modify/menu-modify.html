@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>MODIFY</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    body, h1, h2, h3, p, ul, li {
+      margin: 0;
+      padding: 0;
+    }
+    /* 헤더 스타일 */
+    .header {
+      background-color:transparent; /* 배경색 투명 */
+      width: 100%;
+    }
+
+    /* 로고 스타일 */
+    .logo {
+      position: absolute;
+      top: 25px;
+      left: 20px;
+      color: #333333;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    /* 메뉴 스타일 */
+    .menu {
+      background-color: #ffffff;
+      padding: 30px 0;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: right;
+    }
+
+    .menu ul {
+      list-style: none;
+    }
+
+    .menu ul li {
+      display: inline-block;
+      margin-right: 80px;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #333333;
+      font-weight: bold;
+    }
+    /* 호버 효과 */
+    .menu ul li a:hover {
+      color: #009aff;
+    }
+    #menu-title{
+      margin-top: 4%;
+      text-align: center;
+    }
+    /* 수정된 레이아웃 */
+    .modify {
+      display: flex;
+      align-items: center;
+      width: 90%;
+      margin: 3% auto;
+    }
+    .img-box {
+      flex: 0.5;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden; /* 넘치는 내용을 숨깁니다. */
+    }
+
+    .img-box img {
+      max-width: 100%;
+      margin-bottom: 15%;
+      height: auto;
+      border-radius: 3px;
+    }
+
+    .modify-input-box {
+      flex: 1; /* 오른쪽 공간 모두 차지하도록 설정 */
+      margin-right: 60px;
+      padding: 20px;
+    }
+
+    .modify-input-box input {
+      display: block;
+      margin-top: 10px;
+      width: 60%;
+      height: 30px;
+      padding: 10px;
+      border: 1px solid #7c7c7c;
+      border-radius: 3px;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .modify-input-box input:focus{
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">KioskEase Pro</div>
+  <nav class="menu">
+    <ul>
+      <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
+      <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
+      <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
+      <li><a href="#">Under development</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <h1 id="menu-title">[아메리카노 메뉴 수정]</h1>
+
+  <form action="#" method="post" class="modify">
+
+    <div class="img-box">
+      <img src="1.Americano.jpg">
+    </div>
+
+    <div class="modify-input-box">
+      <input type="hidden" class="id" name="id">
+      <input type="text" placeholder="이름" name="name">
+      <input type="text" placeholder="가격" name="price">
+      <input type="text" placeholder="카테고리" name="category">
+      <input type="text" placeholder="부과 설명" name="description">
+      <input type="text" placeholder="수량" name="amount">
+    </div>
+  </form>
+
+  <script>
+
+  </script>
+</body>
+</html>

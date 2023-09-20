@@ -80,7 +80,6 @@
 
         .menu-item {
             display: inline-block;
-            background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
             width: 230px;
@@ -195,7 +194,7 @@
                 const itemName = $("<h3>").text(menuItem.name);
                 const itemPrice = $("<span>").text(`${menuItem.price}원`);
                 const itemDescription = $("<p>").text(menuItem.description);
-                const itemReplaceBtn = $("<button>").text("수정");
+                const itemReplaceBtn = $("<button>").text("수정").data("menu-id",menuItem.id).attr("class","modify-btn");
 
                 itemDiv.append(itemImage, itemName, itemPrice, itemDescription, itemReplaceBtn);
                 menuList.append(itemDiv);
@@ -203,18 +202,28 @@
             }
 
             currentIndex = (currentIndex + itemsPerSlide) % menuData.length; // 다음 인덱스 설정
-        }
+            function menuModifyBtnClickHandler() {
+                const menuBtn = $(".modify-btn");
 
+                menuBtn.on("click", function () {
+                    const menuId = $(this).data("menu-id"); // 현재 클릭된 버튼의 데이터 가져오기
+                    alert(menuId);
+                });
+            }
+            menuModifyBtnClickHandler();
+        }
         function displayMenuItems(data) {
             const menuItems = [];
 
             for (let i = 0; i < data.length; i++) {
+                let id = data[i].id
                 let name = data[i].name;
                 let price = data[i].price;
                 let description = data[i].description;
                 let image = `/storeName/menuImage/${data[i].image}`; // 상대 경로로 변경
 
                 const menuItem = {
+                    id: id,
                     name: name,
                     price: price,
                     description: description,
@@ -249,7 +258,13 @@
                 console.log('Ajax 요청 실패:', error);
             }
         });
+
+
+
+
     });
+
+
 </script>
 
 </body>
