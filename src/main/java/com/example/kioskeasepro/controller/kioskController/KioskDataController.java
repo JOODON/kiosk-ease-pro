@@ -1,11 +1,10 @@
 package com.example.kioskeasepro.controller.kioskController;
 
 
-import com.example.kioskeasepro.dto.MenuDirectoryDTO;
+import com.example.kioskeasepro.entity.Create;
 import com.example.kioskeasepro.entity.Menu;
-import com.example.kioskeasepro.service.KioskFileService;
-import com.example.kioskeasepro.service.MenuService;
-import com.example.kioskeasepro.service.UnzipService;
+import com.example.kioskeasepro.entity.MenuDirectory;
+import com.example.kioskeasepro.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @RestController("/kiosk")
 @RequiredArgsConstructor
@@ -24,6 +24,7 @@ public class KioskDataController {
 
     private final KioskFileService kioskFileService;
 
+    private final CreateService createService;
     @RequestMapping(value = "/create-kisok",method = RequestMethod.POST)
     public ResponseEntity<String> processZipData(@RequestParam("zipFile")MultipartFile menuZipFile){
         logger.info("Create Kiosk Menu");
@@ -48,6 +49,10 @@ public class KioskDataController {
                 List<Menu> menuList = menuService.menuEntitySetImagePath(menuListNoImage,storeName);
 
                 menuService.saveMenuList(menuList);
+
+                createService.createMenuData(storeName);
+
+                //생성 데이터 베이스 저장 코드 작성하기
 
                 return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 

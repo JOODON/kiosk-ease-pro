@@ -1,6 +1,7 @@
 package com.example.kioskeasepro.entity;
 
 
+import com.example.kioskeasepro.dto.MenuDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -27,4 +28,20 @@ public class Menu {
     //이미지 경로
 
     private String storeName;
+
+    public static Menu convertToMenuEntity(MenuDTO menuDTO) {
+        Menu menu = new Menu();
+
+        menu.setId(menuDTO.getId());
+        menu.setName(menuDTO.getName());
+        menu.setPrice(menuDTO.getPrice());
+        menu.setDescription(menuDTO.getDescription());
+        menu.setCategory(menuDTO.getCategory());
+        menu.setAmount(menuDTO.getAmount());
+        menu.setImagePath(menuDTO.getImage());
+        menu.setStoreName(menuDTO.getStoreName());
+
+        return menu;
+    }
+
 }

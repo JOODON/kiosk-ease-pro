@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.StringTokenizer;
-
 @Entity
 @Table(name = "menu_directory")
 @Data
@@ -14,7 +12,7 @@ import java.util.StringTokenizer;
 public class MenuDirectory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1씩 자동 증가로 수정
+    @GeneratedValue
     private Long id;
 
     @Column(name = "STORE-NAME")
@@ -28,6 +26,7 @@ public class MenuDirectory {
 
     @Column(name = "MENU-COUNT")
     private int menuCount; // 메뉴 개수
+
     public static MenuDirectory convertToMenuDirectory(MenuDirectoryDTO menuDirectoryDTO) {
         MenuDirectory menuDirectory = new MenuDirectory();
 

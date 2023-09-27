@@ -91,4 +91,9 @@ public class MenuDirectoryService {
         String deleteFolderPath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+shopName;
         deleteFolder(deleteFolderPath);
     }
+
+    public MenuDirectory findByStoreName(String storeName){
+
+        return menuDirectoryRepository.findByStoreName(storeName);
+    }
 }

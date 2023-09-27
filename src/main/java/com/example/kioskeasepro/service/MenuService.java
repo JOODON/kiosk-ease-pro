@@ -27,7 +27,6 @@ public class MenuService {
         for (int i=0; i<fileMenuList.size(); i++){
             saveMenu(fileMenuList.get(i));
         }
-
     }
     private static List<String> getImageFileNames(String directoryPath) {
         List<String> imageFileNames = new ArrayList<>();

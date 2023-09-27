@@ -11,7 +11,7 @@ public class KioskViewController {
     @RequestMapping("/create")
     public String createNewMenuFile(){
 
-        return "kiosk-create/kiosk-create-page";
+        return "kiosk_create/kiosk-create-page";
     }
 
 }
