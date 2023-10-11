@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <title>MODIFY</title>
+  <title>메뉴 수정</title>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -12,13 +11,13 @@
       margin: 0;
       padding: 0;
     }
-    /* 헤더 스타일 */
+    /* Header styles */
     .header {
-      background-color:transparent; /* 배경색 투명 */
+      background-color: transparent; /* 투명한 배경 */
       width: 100%;
     }
 
-    /* 로고 스타일 */
+    /* Logo styles */
     .logo {
       position: absolute;
       top: 25px;
@@ -27,10 +26,11 @@
       font-size: 24px;
       font-weight: bold;
     }
-    /* 메뉴 스타일 */
+
+    /* Menu styles */
     .menu {
-      background-color: #ffffff;
-      padding: 30px 0;
+      background-color: #ffffff; /* 헤더 바의 배경색 */
+      padding: 30px 0; /* 높이를 높임 */
       border-bottom: 1px solid #e0e0e0;
       text-align: right;
     }
@@ -41,7 +41,7 @@
 
     .menu ul li {
       display: inline-block;
-      margin-right: 80px;
+      margin-right: 80px; /* 메뉴 간격을 조정 */
     }
 
     .menu ul li a {
@@ -49,58 +49,68 @@
       color: #333333;
       font-weight: bold;
     }
-    /* 호버 효과 */
+    /* Hover effect */
     .menu ul li a:hover {
       color: #009aff;
     }
-    #menu-title{
-      margin-top: 4%;
-      text-align: center;
-    }
-    /* 수정된 레이아웃 */
+
+
+    /* 수정된 레이아웃 (바디 부분 변경) */
     .modify {
       display: flex;
       align-items: center;
-      width: 90%;
-      margin: 3% auto;
+      justify-content: center;
     }
-    .img-box {
-      flex: 0.5;
+
+    .modify-form {
+      margin-top: 5%;
+      width: 540px;
+      height: 560px;
+      background-color: #fff;
+      border-radius: 5px;
       text-align: center;
-      padding: 20px;
-      overflow: hidden; /* 넘치는 내용을 숨깁니다. */
+      border: 1px solid black;
+      margin-bottom: 50px; /* 여백 추가 */
+
+    }
+
+    .img-box {
+      text-align: center;
+      margin-top: 5px;
     }
 
     .img-box img {
       max-width: 100%;
-      margin-bottom: 15%;
       height: auto;
       border-radius: 3px;
     }
 
-    .modify-input-box {
-      flex: 1; /* 오른쪽 공간 모두 차지하도록 설정 */
-      margin-right: 60px;
-      padding: 20px;
+    input{
+      width: 200px;
+      height: 30px;
+      border-radius: 3px;
+      margin: 3px;
     }
 
-    .modify-input-box input {
-      display: block;
-      margin-top: 10px;
-      width: 60%;
-      height: 30px;
-      padding: 10px;
-      border: 1px solid #7c7c7c;
-      border-radius: 3px;
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    .modify-input-box input:focus{
+    .modify-input-box input:focus {
       transform: translateY(-4px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      border-radius: 3px;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 80%;
     }
   </style>
 </head>
 <body>
+
 <header class="header">
   <div class="logo">KioskEase Pro</div>
   <nav class="menu">
@@ -113,26 +123,21 @@
   </nav>
 </header>
 
-  <h1 id="menu-title">[아메리카노 메뉴 수정]</h1>
-
-  <form action="#" method="post" class="modify">
-
+<div class="modify">
+  <form action="/update-menu" method="post" class="modify-form">
     <div class="img-box">
-      <img src="1.Americano.jpg">
+      <img id="imageBox" th:src="${menuDTO.image}" alt="해당 메뉴 이미지">
     </div>
 
-    <div class="modify-input-box">
-      <input type="hidden" class="id" name="id">
-      <input type="text" placeholder="이름" name="name">
-      <input type="text" placeholder="가격" name="price">
-      <input type="text" placeholder="카테고리" name="category">
-      <input type="text" placeholder="부과 설명" name="description">
-      <input type="text" placeholder="수량" name="amount">
-    </div>
+    <input type="hidden" name="id" th:value="${menuDTO.id}" placeholder="메뉴 이름">
+    <input type="text" placeholder="이름" name="name" th:value="${menuDTO.name}" >
+    <input type="text" placeholder="가격" name="price" th:value="${menuDTO.price}">
+    <input type="text" placeholder="카테고리" name="category" th:value="${menuDTO.category}">
+    <input type="text" placeholder="부과 설명" name="description" th:value="${menuDTO.description}">
+    <input type="text" placeholder="수량" name="amount" th:value="${menuDTO.amount}">
+
+    <button type="submit">수정</button>
   </form>
-
-  <script>
-
-  </script>
+</div>
 </body>
 </html>

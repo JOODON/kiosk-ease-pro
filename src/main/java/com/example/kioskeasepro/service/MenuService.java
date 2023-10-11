@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,5 +75,12 @@ public class MenuService {
 
         return menuDTOList;
     }
+    public MenuDTO findMenuById(Long id){
 
+        Optional<Menu> menu = menuRepository.findById(id);
+
+        return menu.map(MenuDTO::convertToMenuDTO).orElse(null);
+
+        //메뉴를 아이디에서 찾으면 정상적으로 리턴시키고 아닐시 널을 반환함
+    }
 }
