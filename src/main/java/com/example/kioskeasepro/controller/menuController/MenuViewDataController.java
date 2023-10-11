@@ -26,8 +26,11 @@ public class MenuViewDataController {
     public ResponseEntity<List<MenuDTO>> presentMenu(String storeName){
         logger.info("present Menu");
 
-        List<MenuDTO> menuDTOS = menuService.findMenuByStoreName("동호가게");
+        System.out.println(storeName);
+
+        List<MenuDTO> menuDTOS = menuService.findMenuByStoreName(storeName);
         //Store 값을 전송하고 그걸 데이터로 받아옴
+        //어떻게?
 
         return new ResponseEntity<>(menuDTOS, HttpStatus.OK);
     }

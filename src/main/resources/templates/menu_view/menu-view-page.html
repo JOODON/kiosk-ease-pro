@@ -141,6 +141,34 @@
             object-fit: cover; /* 이미지가 잘릴 수 있도록 설정 */
         }
 
+        /* 새로운 스타일 정의 */
+        .centered-container {
+            display: flex;
+            justify-content: flex-end ; /* 우측 정렬 */
+            align-items: center; /* 수직 가운데 정렬 */
+            width: 100%; /* 전체 너비 차지 */
+            height: 80px; /* 원하는 높이 설정 */
+        }
+
+        .store-title-input-Box button {
+            background-color: #000000; /* 버튼 배경색 지정 */
+            color: #fff; /* 버튼 텍스트 색상 지정 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 둥근 모서리 추가 */
+            padding: 8px 16px; /* 내부 여백 추가 */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 버튼에 호버 효과 추가 */
+        }
+
+        .store-title-input-Box button:hover {
+            background-color: #0077cc; /* 호버 시 배경색 변경 */
+        }
+        #store-name-input-box{
+            width: 200px;
+            height: 30px;
+            border-radius: 5px;
+            padding: 4px 8px; /* 내부 여백 추가 */
+        }
     </style>
 </head>
 <body>
@@ -156,6 +184,12 @@
     </nav>
 </header>
 
+<div class="centered-container">
+    <div class="store-title-input-Box">
+        <input type="text" id="store-name-input-box" placeholder="상호명 이름을 입력해 주세요">
+        <button id="change-menu-button">메뉴 보기</button>
+    </div>
+</div>
 
 
 <div class="store-title">
@@ -168,7 +202,22 @@
 
 <script>
     $(document).ready(function () {
-        showStoreName();
+
+        changeMenuBtnClickHandler();
+        //버튼 클릭 이벤트 활성화
+        function changeMenuBtnClickHandler(){
+            let changeMenuBtn = $("#change-menu-button");
+
+            changeMenuBtn.on("click",function (){
+                let storeName = $("#store-name-input-box").val();
+
+                fetchAndDisplayStoreMenu(storeName);
+                showStoreName(storeName);
+
+            });
+        }
+
+        //동적으로 가게이름 바꾸기 함수
         function showStoreName(store){
             let storeName = $(".store-title");
 
@@ -178,6 +227,9 @@
 
             storeName.text(storeNameText);
         }
+
+        //키오스크 이름 바꾸기 함수
+
         let currentIndex = 0;
         const itemsPerSlide = 4; // 한 번에 표시할 아이템 수
 
@@ -212,6 +264,8 @@
             }
             menuModifyBtnClickHandler();
         }
+
+        //아이템 정보 입력하는 함수
         function displayMenuItems(data) {
             const menuItems = [];
 
@@ -230,37 +284,37 @@
                     image: image.replace("storeName", data[i].storeName)
                 };
                 menuItems.push(menuItem);
-                // showStoreName(data[0].storeName); 정상 코드
-                showStoreName("COFFEE SHOP")
             }
 
             return menuItems;
         }
 
-        $.ajax({
-            type: 'GET',
-            url: '/menu/find-menu-list',
-            dataType: 'json',
-            success: function (data) {
-                let menuData = displayMenuItems(data);
-                createMenuItems(menuData);
 
-                console.log(menuData);
+        function fetchAndDisplayStoreMenu(storeName){
+            $.ajax({
+                type: 'GET',
+                url: `/menu/find-menu-list`,
+                data: { storeName: `${storeName}` }, // storeName 값을 전달
+                dataType: 'json',
+                success: function (data) {
+                    let menuData = displayMenuItems(data);
+                    createMenuItems(menuData);
 
-                setInterval(function () {
-                    $("#menu-list .menu-item").fadeOut(2000, function () {
-                        createMenuItems(menuData);
-                        $(this).remove();
-                    });
-                }, 7000);
-            },
-            error: function (error) {
-                console.log('Ajax 요청 실패:', error);
-            }
-        });
+                    console.log(menuData);
+
+                    setInterval(function () {
+                        $("#menu-list .menu-item").fadeOut(2000, function () {
+                            createMenuItems(menuData);
+                            $(this).remove();
+                        });
+                    }, 7000);
+                },
+                error: function (error) {
+                    console.log('Ajax 요청 실패:', error);
+                }
+            });
+        }
     });
-
-
 </script>
 
 </body>
