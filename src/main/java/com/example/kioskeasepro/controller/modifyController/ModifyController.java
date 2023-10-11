@@ -3,22 +3,24 @@ package com.example.kioskeasepro.controller.modifyController;
 
 import com.example.kioskeasepro.dto.MenuDTO;
 import com.example.kioskeasepro.entity.Menu;
+import com.example.kioskeasepro.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class ModifyController {
 
+    private final MenuService menuService;
+    @PostMapping(value = "/modify-menu")
+    public String updateMenu(MenuDTO menuDTO){
 
-    @RequestMapping(value = "/modify-menu",method = RequestMethod.PUT)
-    public ResponseEntity<MenuDTO> updateMenu(Long id){
-        MenuDTO menuDTO = new MenuDTO();
-        //업데이트 로직
-        
-        return ResponseEntity.ok(menuDTO);
+        Menu menu = menuService.updateMenuDto(menuDTO.getId(),menuDTO);
+        if (menu != null){
+            return "redirect:/menu/";
+
+        }
+        return "error";
     }
 }

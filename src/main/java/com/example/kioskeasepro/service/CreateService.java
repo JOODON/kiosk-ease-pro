@@ -42,8 +42,8 @@ public class CreateService {
 
         List<Menu> menus = new ArrayList<>();
 
-        for (int i=0; i<menuDTOList.size(); i++){
-            Menu menu = Menu.convertToMenuEntity(menuDTOList.get(i));
+        for (MenuDTO menuDTO : menuDTOList) {
+            Menu menu = Menu.convertToMenuEntity(menuDTO);
             menus.add(menu);
         }
 

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <title>메뉴 수정</title>
   <style>
     body {
@@ -124,7 +126,7 @@
 </header>
 
 <div class="modify">
-  <form action="/update-menu" method="post" class="modify-form">
+  <form action="/modify-menu" method="post" class="modify-form">
     <div class="img-box">
       <img id="imageBox" th:src="${menuDTO.image}" alt="해당 메뉴 이미지">
     </div>

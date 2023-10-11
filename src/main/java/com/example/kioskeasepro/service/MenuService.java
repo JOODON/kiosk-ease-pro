@@ -83,4 +83,21 @@ public class MenuService {
 
         //메뉴를 아이디에서 찾으면 정상적으로 리턴시키고 아닐시 널을 반환함
     }
+
+    public Menu updateMenuDto(Long id,MenuDTO menuDTO){
+        Optional<Menu> menu = menuRepository.findById(id);
+
+        if (menu.isPresent()){
+
+            menu.get().setName(menuDTO.getName());
+            menu.get().setPrice(menuDTO.getPrice());
+            menu.get().setAmount(menuDTO.getAmount());
+            menu.get().setDescription(menuDTO.getDescription());
+            menu.get().setCategory(menuDTO.getCategory());
+
+
+            return menuRepository.save(menu.get());
+        }
+        return null;
+    }
 }

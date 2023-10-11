@@ -213,6 +213,7 @@
 
                 fetchAndDisplayStoreMenu(storeName);
                 showStoreName(storeName);
+                $("#menu-list").empty();
 
             });
         }
@@ -234,8 +235,8 @@
         const itemsPerSlide = 4; // 한 번에 표시할 아이템 수
 
         function createMenuItems(menuData) {
-            const menuList = $("#menu-list");
-            menuList.empty();
+            const menuList = $("#menu-list")
+            menuList.empty(); // 이전 메뉴 삭제;
 
             for (let i = 0; i < itemsPerSlide; i++) {
                 const index = (currentIndex + i) % menuData.length; // 순환 인덱스 계산
@@ -252,7 +253,6 @@
                 menuList.append(itemDiv);
                 itemDiv.hide().fadeIn(2000);
             }
-
             currentIndex = (currentIndex + itemsPerSlide) % menuData.length; // 다음 인덱스 설정
             function menuModifyBtnClickHandler() {
                 const menuBtn = $(".modify-btn");
