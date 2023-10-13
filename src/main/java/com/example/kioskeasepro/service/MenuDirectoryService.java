@@ -64,10 +64,17 @@ public class MenuDirectoryService {
     }
 
 
-    public void saveMenuDirectory(MenuDirectoryDTO menuDirectoryDTO){
-        MenuDirectory menuDirectory = MenuDirectory.convertToMenuDirectory(menuDirectoryDTO);
+    public String saveMenuDirectory(MenuDirectoryDTO menuDirectoryDTO){
+        MenuDirectory menu = findByStoreName(menuDirectoryDTO.getStoreName());
 
-        menuDirectoryRepository.save(menuDirectory);
+        if (menu == null){
+            MenuDirectory menuDirectory = MenuDirectory.convertToMenuDirectory(menuDirectoryDTO);
+            menuDirectoryRepository.save(menuDirectory);
+
+            return "성공적으로 메뉴 디렉토리를 생성했습니다";
+        }
+
+        return "중복된 가게 명이 있습니다.";
     }
 
     public int countMenus(String menuText) {
@@ -93,7 +100,6 @@ public class MenuDirectoryService {
     }
 
     public MenuDirectory findByStoreName(String storeName){
-
         return menuDirectoryRepository.findByStoreName(storeName);
     }
 }

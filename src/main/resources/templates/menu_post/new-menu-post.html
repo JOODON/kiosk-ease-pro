@@ -245,7 +245,9 @@
                 sendTextData(menuCount);
 
                 //5초뒤에 다운로드 진행
-                downloadFolder();
+                downloadFolderAndCreateKioskPage();
+
+
             });
 
             // 실제 파일 텍스트를 전송하는 함수
@@ -308,11 +310,31 @@
             }
         });
 
-        function downloadFolder() {
+        function downloadFolderAndCreateKioskPage() {
+            // URL 및 storeName을 정의.
+            const folderDownloadURL = "http://localhost:8080/menu/download-folder?storeName=" + storeName;
+            const kioskCreateURL = "http://localhost:8080/kiosk/create";
+            let delayMilliseconds = 3000; // 5초 대기
+
+            //3초 대기 후 다운로드 진행
+            setTimeout(function (){
+                navigateToNewPage(folderDownloadURL);
+            },delayMilliseconds);
+
+            delayMilliseconds = 5000;
+            //다운로드가 되면
+            function navigateToNewPage(url) {
+                location.href = url;
+            }
+
+            // setTimeout 을 사용하여 다운로드 및 이동을 지연시킵니다.
             setTimeout(function() {
-                location.href = "http://localhost:8080/menu/download-folder?storeName=" + storeName;
-            }, 5000); // 5초를 밀리초로 표시
+                alert("KIOSK 제작 페이지로 이동합니다");
+                navigateToNewPage(kioskCreateURL);
+            }, delayMilliseconds);
+
         }
+
         function promptStoreName() {
             let store = prompt("가게 이름을 입력해주세요."); // 사용자에게 가게 이름 입력 요청
 

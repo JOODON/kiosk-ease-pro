@@ -42,8 +42,9 @@ public class MenuPostDataController {
         menuDirectoryDTO.setMenuCount(menuDirectoryService.countMenus(menuDirectoryDTO.getMenuText()));
         menuDirectoryDTO.setFilePath(fileSavePath);
 
+
         //세션 값을 저장
-        menuDirectoryService.saveMenuDirectory(menuDirectoryDTO);
+        String resultMessage = menuDirectoryService.saveMenuDirectory(menuDirectoryDTO);
         //DB에 저장 따라서 여기서 시간이 더걸리기 떄문에 이 작업이 끝나면 다운로드
 
         zipUtilService.downloadZipFile(menuDirectoryDTO.getStoreName());
@@ -52,7 +53,7 @@ public class MenuPostDataController {
         menuDirectoryService.deleteFolderHandler(storeName);
         //파일을 지워주기
 
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        return new ResponseEntity<>(resultMessage, HttpStatus.OK);
     }
 
     @PostMapping(value = "/new-post-file")

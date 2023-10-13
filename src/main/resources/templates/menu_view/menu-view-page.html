@@ -211,9 +211,13 @@
             changeMenuBtn.on("click",function (){
                 let storeName = $("#store-name-input-box").val();
 
+                // $("#menu-list").remove();
+                //기존에 있던 내용을 삭제
+
                 fetchAndDisplayStoreMenu(storeName);
+                //다시 데이터를 받아와서 생성
+
                 showStoreName(storeName);
-                $("#menu-list").empty();
 
             });
         }
