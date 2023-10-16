@@ -10,12 +10,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Data
-public class ValidationDTO {
+public class ValidationDTO<T> {
 
     private String errorMsg;
     //에러메세지를 담을 errorMsg;
 
-    private UserDTO userDTO;
-    //유저 DTO
+    private T dto;
+    //DTO 를 입력해서 맞게 설정
 
 }

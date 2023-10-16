@@ -6,7 +6,6 @@
 
   <title>KIOSK-EASE-PRO 회원가입</title>
   <style>
-    /* 추가된 스타일: */
     body {
       display: flex;
       flex-direction: column;
@@ -51,7 +50,7 @@
       border-radius: 4px;
       color: #333;
     }
-    select{
+    select {
       margin-left: 3%;
     }
     button {
@@ -77,7 +76,8 @@
     <h2>KIOSK - EASE - PRO</h2>
     <p>회원가입 페이지</p>
   </div>
-
+  <div id="page1">
+    <!-- 첫 번째 페이지의 필드들 -->
     <div class="box">
       <input type="text" id="username" name="username" class="int" placeholder="아이디 (이메일)" required>
     </div>
@@ -88,15 +88,6 @@
       <input type="text" id="name" name="name" class="int" placeholder="이름" required>
     </div>
     <div class="box">
-      <input type="text" id="businessId" name="businessId" class="int" placeholder="사업자번호" required>
-    </div>
-    <div class="box">
-      <input type="text" id="businessName" name="businessName" class="int" placeholder="사업장명" required>
-    </div>
-    <div class="box">
-      <input type="text" id="businessAddress" name="businessAddress" class="int" placeholder="사업자 주소" required>
-    </div>
-    <div class="box">
       <input type="tel" id="phoneNumber" name="phoneNumber" class="int" placeholder="휴대폰번호" required>
     </div>
     <div class="box">
@@ -105,38 +96,82 @@
         <option value="woman">여성</option>
       </select>
     </div>
-    <button onclick="sendUserData()">가입</button>
+    <button id="nextButton">다음</button>
+  </div>
+
+  <div id="page2" style="display: none;">
+
+    <!-- 두 번째 페이지의 필드들 -->
+    <div class="box">
+      <input type="text" id="businessId" name="businessId" class="int" placeholder="사업자번호" required>
+    </div>
+    <div class="box">
+      <input type="text" id="businessOwnerName" name="businessOwnerName" class="int" placeholder="사업주 이름" required>
+    </div>
+    <div class="box">
+      <input type="text" id="businessName" name="businessName" class="int" placeholder="사업장명" required>
+    </div>
+    <div class="box">
+      <input type="text" id="businessAddress" name="businessAddress" class="int" placeholder="사업자 주소" required>
+    </div>
+    <button id="registerButton">가입</button>
+  </div>
 </div>
 </body>
 <script>
-  function sendUserData() {
+  $(document).ready(function () {
+    const page1 = $('#page1');
+    const page2 = $('#page2');
+    const nextButton = $('#nextButton');
+    const registerButton = $('#registerButton');
 
-    let userOBJ = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-      name: $("#name").val(),
-      businessId: $("#businessId").val(),
-      businessName: $("#businessName").val(),
-      businessAddress: $("#businessAddress").val(),
-      phoneNumber: $("#phoneNumber").val(),
-      gender: $("#gender").val()
-    }
-
-    alert(userOBJ.name)
-
-    $.ajax({
-      type: "POST",
-      url: "/user/userRegister",
-      data: JSON.stringify(userOBJ),
-      contentType: "application/json", // 올바른 contentType 설정
-      success: function (result) {
-        console.log(result);
-        alert(result);
-      },
-      error: function (request, status, error) {
-        alert("code" + request.status + "\n" + "message" + request.responseText + "\n" + "error" + error);
+    // "가입" 버튼 클릭 시 두 번째 페이지에서 데이터를 서버로 전송
+    nextButton.click(function () {
+      let userOBJ = {
+        username: $("#username").val(),
+        password: $("#password").val(),
+        name: $("#name").val(),
+        phoneNumber: $("#phoneNumber").val(),
+        gender: $("#gender").val()
       }
+      registerOBJ(userOBJ, "userRegister");
     });
-  }
+
+    // "다음" 버튼 클릭 시 첫 번째 페이지에서 두 번째 페이지로 전환
+    registerButton.click(function () {
+      let businessOBJ = {
+        businessOwnerName : $("#businessOwnerName").val(),
+        businessId: $("#businessId").val(),
+        businessName: $("#businessName").val(),
+        businessAddress: $("#businessAddress").val()
+      }
+
+      registerOBJ(businessOBJ,"businessRegister");
+
+      // 비즈니스 정보 서버에 전달
+
+    });
+    function registerOBJ(obj, url) {
+      // AJAX 요청 전송 및 성공 또는 오류 처리 (이전 코드와 동일)
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: JSON.stringify(obj),
+        contentType: "application/json",
+        success: function (result) {
+          console.log(result);
+
+          if (url === "userRegister"){
+            page1.fadeOut(1000, function() {
+              page2.fadeIn(1000);
+            });
+          }
+        },
+        error: function (request, status, error) {
+          alert("code" + request.status + "\n" + "message" + request.responseText + "\n" + "error" + error);
+        }
+      });
+    }
+  });
 </script>
 </html>

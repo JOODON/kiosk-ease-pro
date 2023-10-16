@@ -1,5 +1,6 @@
 package com.example.kioskeasepro.service;
 
+import com.example.kioskeasepro.dto.BusinessDTO;
 import com.example.kioskeasepro.dto.UserDTO;
 
 import com.example.kioskeasepro.dto.ValidationDTO;
@@ -16,10 +17,10 @@ public class UserValidationService implements ValidationService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     public ValidationDTO validateUserInput(UserDTO userDTO) {
-        ValidationDTO validationDTO = new ValidationDTO();
+
+        ValidationDTO<UserDTO> validationDTO = new ValidationDTO();
 
         if (userDTO == null) {
-            validationDTO.setUserDTO(null);
             validationDTO.setErrorMsg("데이터가 존재하지 않습니다");
             return validationDTO;
         }
@@ -30,14 +31,8 @@ public class UserValidationService implements ValidationService {
             errorMsg = "이메일 양식이 일치하지 않습니다";
         } else if (!isPasswordValid(userDTO.getPassword())) {
             errorMsg = "비밀번호 양식이 일치하지 않습니다. 비밀번호는 최소 8자, 영문 대/소문자, 숫자, 특수문자(!@#$%^&) 중 최소 하나 포함해야 합니다.";
-        } else if (!isBusinessIdValid(userDTO.getBusinessId())) {
-            errorMsg = "사업자 번호가 양식에 맞지 않습니다. 숫자로만 이루어진 10자리의 사업자번호를 입력해주세요.";
         } else if (!isNameValid(userDTO.getName())) {
             errorMsg = "이름이 양식에 맞지 않습니다";
-        } else if (!isBusinessNameValid(userDTO.getBusinessName())) {
-            errorMsg = "사업장 명이 양식에 일치하지 않습니다. 한글, 영문 대/소문자, 숫자, 공백, 특수문자 포함 가능, 2자 이상 50자 이하로 작성해주세요.";
-        } else if (!isBusinessAddressValid(userDTO.getBusinessAddress())) {
-            errorMsg = "사업장 주소가 양식에 맞지 않습니다. 한글, 영문 대/소문자, 숫자, 공백, 특수문자 포함 가능, 5자 이상 100자 이하를 입력해 주세요.";
         } else if (!isPhoneNumberValid(userDTO.getPhoneNumber())) {
             errorMsg = "휴대폰 번호가 양식에 맞지 않습니다.";
         }else{
@@ -45,12 +40,38 @@ public class UserValidationService implements ValidationService {
         }
 
         validationDTO.setErrorMsg(errorMsg);
-        validationDTO.setUserDTO(userDTO);
+        validationDTO.setDto(userDTO);
 
         return validationDTO;
     }
+    public ValidationDTO validateBusinessInput(BusinessDTO businessDTO) {
 
+        ValidationDTO<BusinessDTO> validationDTO = new ValidationDTO();
 
+        if (businessDTO == null) {
+            validationDTO.setErrorMsg("데이터가 존재하지 않습니다");
+            return validationDTO;
+        }
+
+        System.out.println(businessDTO);
+
+        String errorMsg = null;
+
+        if (!isBusinessIdValid(businessDTO.getBusinessId())) {
+            errorMsg = "사업자 번호가 양식에 맞지 않습니다. 숫자로만 이루어진 10자리의 사업자번호를 입력해주세요. 예시 000-00-00000";
+        } else if (!isNameValid(businessDTO.getBusinessName())) {
+            errorMsg = "이름이 양식에 맞지 않습니다";
+        } else if (!isBusinessNameValid(businessDTO.getBusinessName())) {
+            errorMsg = "사업장 명이 양식에 일치하지 않습니다. 한글, 영문 대/소문자, 숫자, 공백, 특수문자 포함 가능, 2자 이상 50자 이하로 작성해주세요.";
+        } else if (!isBusinessAddressValid(businessDTO.getBusinessAddress())) {
+            errorMsg = "사업장 주소가 양식에 맞지 않습니다. 한글, 영문 대/소문자, 숫자, 공백, 특수문자 포함 가능, 5자 이상 100자 이하를 입력해 주세요.";
+        }
+
+        validationDTO.setErrorMsg(errorMsg);
+        validationDTO.setDto(businessDTO);
+
+        return validationDTO;
+    }
 
     @Override
     public boolean isUsernameValid(String username) {
@@ -78,11 +99,10 @@ public class UserValidationService implements ValidationService {
 
     @Override
     public boolean isBusinessIdValid(String businessId) {
-        // 예시: 숫자로만 이루어진 10자리의 사업자번호
-        String regex = "^[0-9]{10}$";
+        // 예시: 숫자로만 이루어진 3자리-2자리-5자리 형식의 사업자번호
+        String regex = "^[0-9]{3}-[0-9]{2}-[0-9]{5}$";
         return businessId.matches(regex);
     }
-
 
     @Override
     public boolean isBusinessNameValid(String businessName) {
@@ -112,4 +132,5 @@ public class UserValidationService implements ValidationService {
     public String passwordEncoder(PasswordEncoder passwordEncoder, String password){
         return passwordEncoder.encode(password);
     }
+
 }

@@ -1,14 +1,21 @@
-package com.example.kioskeasepro.dto;
+package com.example.kioskeasepro.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 
+
+@Entity
+@Table(name = "user")
 @Data
 @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class User{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     private String username; // 아이디 (이메일)
@@ -20,4 +27,5 @@ public class UserDTO {
     private String phoneNumber; // 휴대폰번호
 
     private String gender; // 성별
+
 }
