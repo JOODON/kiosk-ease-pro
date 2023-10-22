@@ -3,19 +3,13 @@ package com.example.kioskeasepro.service;
 
 
 import com.example.kioskeasepro.dto.UserDTO;
-import com.example.kioskeasepro.entity.Business;
 import com.example.kioskeasepro.entity.User;
-import com.example.kioskeasepro.repository.BusinessRepository;
-import com.example.kioskeasepro.repository.UserBusinessRepository;
+
 import com.example.kioskeasepro.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Member;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +44,7 @@ public class UserService {
                 .name(userDTO.getName())//이름
                 .phoneNumber(userDTO.getPhoneNumber())
                 .gender(userDTO.getGender())
+                .role("user")
                 .build();
 
     }

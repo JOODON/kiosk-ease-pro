@@ -32,6 +32,10 @@ public class SecurityConfig {
 
                 // 폼 로그인(form login)을 구성
                 .formLogin(login -> login
+                        //로그인 페이지를 대신할 부분 설정
+                        .loginPage("/user/login")
+                        //로그인을 보낼때 낚아챌 URL 을 설정
+                        .loginProcessingUrl("/login") //이부분에서 PrincipalDetails 실행
                         // 로그인 성공 후 리다이렉트될 URL을 설정
                         .defaultSuccessUrl("/", true)
                         // 로그인 페이지는 모든 사용자에게 허용

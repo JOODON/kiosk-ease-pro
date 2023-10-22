@@ -27,5 +27,6 @@ public class User{
     private String phoneNumber; // 휴대폰번호
 
     private String gender; // 성별
-
+    
+    private String role; //유저 등급
 }
