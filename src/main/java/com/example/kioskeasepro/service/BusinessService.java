@@ -1,6 +1,7 @@
 package com.example.kioskeasepro.service;
 
 
+import com.example.kioskeasepro.config.auth.PrincipalDetails;
 import com.example.kioskeasepro.dto.BusinessDTO;
 
 import com.example.kioskeasepro.entity.Business;
@@ -11,6 +12,7 @@ import com.example.kioskeasepro.repository.UserBusinessRepository;
 import com.example.kioskeasepro.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -66,5 +68,15 @@ public class BusinessService {
 
     private User findByOwnerName(BusinessDTO businessDTO){
         return userRepository.findByName(businessDTO.getBusinessOwnerName());
+    }
+
+    public String findBusinessNameByAuthentication(Authentication authentication){
+        String username = ((PrincipalDetails) authentication.getPrincipal()).getUsername();
+
+        User user = userRepository.findByUsername(username);
+
+        String name = user.getName();
+
+        return businessRepository.findByBusinessOwnerName(name).getBusinessName();
     }
 }

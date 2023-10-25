@@ -1,12 +1,14 @@
 package com.example.kioskeasepro.controller.folderController;
 
 
+import com.example.kioskeasepro.config.auth.PrincipalDetails;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +22,11 @@ import java.nio.file.Files;
 @RestController
 @RequestMapping("/menu")
 public class FolderDownloadController {
+
+
     @GetMapping("/download-folder")
     public ResponseEntity<Resource> downloadFolder(@RequestParam("storeName") String storeName) throws IOException {
+
         // 압축된 폴더 경로 (압축 파일 경로)
         String zipFilePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\["+ storeName +"]menuFolder.zip";
 

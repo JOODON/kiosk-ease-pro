@@ -179,14 +179,12 @@
             <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
             <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
             <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
-            <li><a href="#">Under development</a></li>
+            <li><a href="http://localhost:8080/user/join">Create User / Business</a></li>
         </ul>
     </nav>
 </header>
-
 <div class="centered-container">
     <div class="store-title-input-Box">
-        <input type="text" id="store-name-input-box" placeholder="상호명 이름을 입력해 주세요">
         <button id="change-menu-button">메뉴 보기</button>
     </div>
 </div>
@@ -200,27 +198,16 @@
     </div>
 </div>
 
-<script>
+<script th:inline="javascript">
     $(document).ready(function () {
 
-        changeMenuBtnClickHandler();
-        //버튼 클릭 이벤트 활성화
-        function changeMenuBtnClickHandler(){
-            let changeMenuBtn = $("#change-menu-button");
+        let storeName = [[${storeName}]];
 
-            changeMenuBtn.on("click",function (){
-                let storeName = $("#store-name-input-box").val();
+        fetchAndDisplayStoreMenu();
+        //다시 데이터를 받아와서 생성
 
-                // $("#menu-list").remove();
-                //기존에 있던 내용을 삭제
+        showStoreName(storeName);
 
-                fetchAndDisplayStoreMenu(storeName);
-                //다시 데이터를 받아와서 생성
-
-                showStoreName(storeName);
-
-            });
-        }
 
         //동적으로 가게이름 바꾸기 함수
         function showStoreName(store){

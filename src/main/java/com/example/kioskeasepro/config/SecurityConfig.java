@@ -39,9 +39,10 @@ public class SecurityConfig {
                         // 로그인 성공 후 리다이렉트될 URL을 설정
                         .defaultSuccessUrl("/", true)
                         // 로그인 페이지는 모든 사용자에게 허용
+                        .failureUrl("/login/error")
+                        //로그인 실패시 리다이렉트될 URL 설정
                         .permitAll()
                 )
-
                 // 로그아웃을 기본 설정으로 구성합니다.
                 .logout(Customizer.withDefaults());
 
