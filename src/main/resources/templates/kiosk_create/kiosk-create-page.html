@@ -1,194 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+      layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
-    body, h1, h2, h3, p, ul, li {
-        margin: 0;
-        padding: 0;
-    }
-    /* Header styles */
-    .header {
-        background-color: transparent; /* 투명한 배경 */
-        /*position: fixed;*/
-        width: 100%;
-    }
+<th:block layout:fragment="css">
+    <style>
+        /*메뉴 소개 스타일링*/
+        .menu-addition-description {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    /* Logo styles */
-    .logo {
-        position: absolute;
-        top: 25px;
-        left: 20px;
-        color: #333333;
-        font-size: 24px;
-        font-weight: bold;
-    }
+        .menu-addition-description h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .menu-addition-description p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .menu-addition-description ul {
+            margin-left: 20px;
+        }
+        .menu-addition-description ul li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
 
-    /* Menu styles */
-    .menu {
-        background-color: #ffffff; /* 헤더 바의 배경색 */
-        padding: 30px 0; /* 높이를 높임 */
-        border-bottom: 1px solid #e0e0e0;
-        text-align: right;
-    }
-
-    .menu ul {
-        list-style: none;
-    }
-
-    .menu ul li {
-        display: inline-block;
-        margin-right: 80px; /* 메뉴 간격을 조정 */
-    }
-
-    .menu ul li a {
-        text-decoration: none;
-        color: #333333;
-        font-weight: bold;
-    }
-    /* Hover effect */
-    .menu ul li a:hover {
-        color: #009aff;
-    }
-
-    /*메뉴 소개 스타일링*/
-    .menu-addition-description {
-        background-color: #ffffff;
-        color: #000000;
-        padding: 20px;
-        border-radius: 10px;
-        width: 90%;
-        margin: 20px auto;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .menu-addition-description h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-    .menu-addition-description p {
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-    .menu-addition-description ul {
-        margin-left: 20px;
-    }
-    .menu-addition-description ul li {
-        font-size: 16px;
-        margin-bottom: 5px;
-    }
-
-    /*메뉴 추가 박스 스타일링*/
-    .custom-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: black;
-        color: #ffffff;
-        font-size: 18px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        float: right;
-        margin-right: 3%;
-    }
-    .custom-button:hover {
-        background-color: #0078d4;
-    }
+        /*메뉴 추가 박스 스타일링*/
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: black;
+            color: #ffffff;
+            font-size: 18px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            float: right;
+            margin-right: 3%;
+        }
+        .custom-button:hover {
+            background-color: #0078d4;
+        }
 
 
-    input[type="file"], input[type="text"] {
-        display: block;
-        margin-bottom: 5px;
-        padding: 5px;
-    }
+        input[type="file"], input[type="text"] {
+            display: block;
+            margin-bottom: 5px;
+            padding: 5px;
+        }
 
-    .form-container {
-        margin-left: 3%;
-        background-color: #ffffff;
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 1400px;
-        height: 30%;
-    }
+        .form-container {
+            margin-left: 3%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 1400px;
+            height: 30%;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-    }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
 
-    input[type="file"] {
-        display: none;
-    }
+        input[type="file"] {
+            display: none;
+        }
 
-    .custom-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #000000;
-        color: #ffffff;
-        font-size: 18px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #ffffff;
+            font-size: 18px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .custom-button:hover {
-        background-color: #005a9e;
-    }
+        .custom-button:hover {
+            background-color: #005a9e;
+        }
 
-    .file-input-label {
-        display: inline-block;
-        background-color: #000000;
-        color: #ffffff;
-        padding: 10px 20px;
-        font-size: 18px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        .file-input-label {
+            display: inline-block;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .file-input-label:hover {
-        background-color: #005a9e;
-    }
+        .file-input-label:hover {
+            background-color: #005a9e;
+        }
 
-    #fileInput {
-        display: none;
-    }
-    .uploaded-file-name-container {
-        /* 파일 이름과 다른 컨텐츠 사이의 간격 설정 */
-        width: 90%;
-        margin: 0 auto;
-    }
+        #fileInput {
+            display: none;
+        }
+        .uploaded-file-name-container {
+            /* 파일 이름과 다른 컨텐츠 사이의 간격 설정 */
+            width: 90%;
+            margin: 0 auto;
+        }
 
-    #uploadedFileName {
-        font-size: 18px; /* 파일 이름 폰트 크기 설정 */
-        color: #333333; /* 파일 이름 텍스트 색상 설정 */
-        margin-top: 10px; /* 파일 이름과 상위 요소 사이의 간격 설정 */
-    }
+        #uploadedFileName {
+            font-size: 18px; /* 파일 이름 폰트 크기 설정 */
+            color: #333333; /* 파일 이름 텍스트 색상 설정 */
+            margin-top: 10px; /* 파일 이름과 상위 요소 사이의 간격 설정 */
+        }
 
-</style>
+    </style>
+</th:block>
 <body>
-<header class="header">
-    <div class="logo">KioskEase Pro</div>
-    <nav class="menu">
-        <ul>
-            <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
-            <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
-            <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
-            <li><a href="http://localhost:8080/user/join">Create User / Business</a></li>
-        </ul>
-    </nav>
-</header>
-
+<div layout:fragment="content">
     <div class="menu-addition-description">
         <h1>키오스크 메뉴 생성하기</h1>
         <p>이 페이지를 사용하여 키오스크 메뉴를 손쉽게 생성할 수 있습니다. 아래 단계를 따라 메뉴를 추가하고 키오스크를 자동으로 생성해보세요.</p>
@@ -213,20 +155,21 @@
             <button class="custom-button" type="submit">키오스크 생성하기</button>
         </form>
     </div>
-
+</div>
 </body>
-<script>
-    $(document).ready(function() {
-        // 파일 입력 상자가 변경될 때
-        $('#fileInput').change(function() {
-            let fileName = $(this).val().split('\\').pop(); // 파일 이름 추출
-            $('#uploadedFileName').text('업로드된 파일: ' + fileName); // 파일 이름 표시
-        });
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function() {
+            // 파일 입력 상자가 변경될 때
+            $('#fileInput').change(function() {
+                let fileName = $(this).val().split('\\').pop(); // 파일 이름 추출
+                $('#uploadedFileName').text('업로드된 파일: ' + fileName); // 파일 이름 표시
+            });
 
-        $(".custom-button").on("click",function (){
-            location.href="/kiosk/create"
+            $(".custom-button").on("click",function (){
+                location.href="/kiosk/create"
+            });
         });
-    });
-</script>
-
+    </script>
+</th:block>
 </html>

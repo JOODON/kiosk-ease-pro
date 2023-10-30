@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+      layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
     <title>Menu Display</title>
@@ -172,142 +174,129 @@
     </style>
 </head>
 <body>
-<header class="header">
-    <div class="logo">KioskEase Pro</div>
-    <nav class="menu">
-        <ul>
-            <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
-            <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
-            <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
-            <li><a href="http://localhost:8080/user/join">Create User / Business</a></li>
-        </ul>
-    </nav>
-</header>
-<div class="centered-container">
-    <div class="store-title-input-Box">
-        <button id="change-menu-button">메뉴 보기</button>
+
+<div layout:fragment="content">
+    <div class="store-title">
+        [ COFFEE SHOP ] 메뉴
+    </div>
+    <div class="menu-container" id="menu-container">
+        <div class="menu-list" id="menu-list">
+        </div>
     </div>
 </div>
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+
+            let storeName = [[${storeName}]];
+
+            fetchAndDisplayStoreMenu();
+            //다시 데이터를 받아와서 생성
+
+            showStoreName(storeName);
 
 
-<div class="store-title">
-    [ COFFEE SHOP ] 메뉴
-</div>
-<div class="menu-container" id="menu-container">
-    <div class="menu-list" id="menu-list">
-    </div>
-</div>
+            //동적으로 가게이름 바꾸기 함수
+            function showStoreName(store){
+                let storeName = $(".store-title");
 
-<script th:inline="javascript">
-    $(document).ready(function () {
+                let storeNameText = "[ 가게이름 ] 메뉴";
 
-        let storeName = [[${storeName}]];
+                storeNameText = storeNameText.replace("가게이름", store);
 
-        fetchAndDisplayStoreMenu();
-        //다시 데이터를 받아와서 생성
-
-        showStoreName(storeName);
-
-
-        //동적으로 가게이름 바꾸기 함수
-        function showStoreName(store){
-            let storeName = $(".store-title");
-
-            let storeNameText = "[ 가게이름 ] 메뉴";
-
-            storeNameText = storeNameText.replace("가게이름", store);
-
-            storeName.text(storeNameText);
-        }
-
-        //키오스크 이름 바꾸기 함수
-
-        let currentIndex = 0;
-        const itemsPerSlide = 4; // 한 번에 표시할 아이템 수
-
-        function createMenuItems(menuData) {
-            const menuList = $("#menu-list")
-            menuList.empty(); // 이전 메뉴 삭제;
-
-            for (let i = 0; i < itemsPerSlide; i++) {
-                const index = (currentIndex + i) % menuData.length; // 순환 인덱스 계산
-                const menuItem = menuData[index];
-
-                const itemDiv = $("<div>").addClass("menu-item");
-                const itemImage = $("<img>").attr("src", menuItem.image).attr("alt", menuItem.name);
-                const itemName = $("<h3>").text(menuItem.name);
-                const itemPrice = $("<span>").text(`${menuItem.price}원`);
-                const itemDescription = $("<p>").text(menuItem.description);
-                const itemReplaceBtn = $("<button>").text("수정").data("menu-id",menuItem.id).attr("class","modify-btn");
-
-                itemDiv.append(itemImage, itemName, itemPrice, itemDescription, itemReplaceBtn);
-                menuList.append(itemDiv);
-                itemDiv.hide().fadeIn(2000);
+                storeName.text(storeNameText);
             }
-            currentIndex = (currentIndex + itemsPerSlide) % menuData.length; // 다음 인덱스 설정
-            function menuModifyBtnClickHandler() {
-                const menuBtn = $(".modify-btn");
 
-                menuBtn.on("click", function () {
-                    const menuId = $(this).data("menu-id"); // 현재 클릭된 버튼의 데이터 가져오기
+            //키오스크 이름 바꾸기 함수
 
-                    location.href = `http://localhost:8080/menu/modify/${menuId}`;
+            let currentIndex = 0;
+            const itemsPerSlide = 4; // 한 번에 표시할 아이템 수
+
+            function createMenuItems(menuData) {
+                const menuList = $("#menu-list")
+                menuList.empty(); // 이전 메뉴 삭제;
+
+                for (let i = 0; i < itemsPerSlide; i++) {
+                    const index = (currentIndex + i) % menuData.length; // 순환 인덱스 계산
+                    const menuItem = menuData[index];
+
+                    const itemDiv = $("<div>").addClass("menu-item");
+                    const itemImage = $("<img>").attr("src", menuItem.image).attr("alt", menuItem.name);
+                    const itemName = $("<h3>").text(menuItem.name);
+                    const itemPrice = $("<span>").text(`${menuItem.price}원`);
+                    const itemDescription = $("<p>").text(menuItem.description);
+                    const itemReplaceBtn = $("<button>").text("수정").data("menu-id",menuItem.id).attr("class","modify-btn");
+
+                    itemDiv.append(itemImage, itemName, itemPrice, itemDescription, itemReplaceBtn);
+                    menuList.append(itemDiv);
+                    itemDiv.hide().fadeIn(2000);
+                }
+                currentIndex = (currentIndex + itemsPerSlide) % menuData.length; // 다음 인덱스 설정
+                function menuModifyBtnClickHandler() {
+                    const menuBtn = $(".modify-btn");
+
+                    menuBtn.on("click", function () {
+                        const menuId = $(this).data("menu-id"); // 현재 클릭된 버튼의 데이터 가져오기
+
+                        location.href = `http://localhost:8080/menu/modify/${menuId}`;
+                    });
+                }
+                menuModifyBtnClickHandler();
+            }
+
+            //아이템 정보 입력하는 함수
+            function displayMenuItems(data) {
+                const menuItems = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    let id = data[i].id
+                    let name = data[i].name;
+                    let price = data[i].price;
+                    let description = data[i].description;
+                    let image = `/${data[i].storeName}/menuImage/${data[i].image}`; // 상대 경로로 변경
+
+                    const menuItem = {
+                        id: id,
+                        name: name,
+                        price: price,
+                        description: description,
+                        image: image
+                    };
+                    console.log(image);
+                    menuItems.push(menuItem);
+                }
+
+                return menuItems;
+            }
+
+
+            function fetchAndDisplayStoreMenu(storeName){
+                $.ajax({
+                    type: 'GET',
+                    url: `/menu/find-menu-list`,
+                    data: { storeName: `${storeName}` }, // storeName 값을 전달
+                    dataType: 'json',
+                    success: function (data) {
+                        let menuData = displayMenuItems(data);
+                        createMenuItems(menuData);
+
+                        console.log(menuData);
+
+                        setInterval(function () {
+                            $("#menu-list .menu-item").fadeOut(2000, function () {
+                                createMenuItems(menuData);
+                                $(this).remove();
+                            });
+                        }, 7000);
+                    },
+                    error: function (error) {
+                        console.log('Ajax 요청 실패:', error);
+                    }
                 });
             }
-            menuModifyBtnClickHandler();
-        }
-
-        //아이템 정보 입력하는 함수
-        function displayMenuItems(data) {
-            const menuItems = [];
-
-            for (let i = 0; i < data.length; i++) {
-                let id = data[i].id
-                let name = data[i].name;
-                let price = data[i].price;
-                let description = data[i].description;
-                let image = `/storeName/menuImage/${data[i].image}`; // 상대 경로로 변경
-
-                const menuItem = {
-                    id: id,
-                    name: name,
-                    price: price,
-                    description: description,
-                    image: image.replace("storeName", data[i].storeName)
-                };
-                menuItems.push(menuItem);
-            }
-
-            return menuItems;
-        }
-
-
-        function fetchAndDisplayStoreMenu(storeName){
-            $.ajax({
-                type: 'GET',
-                url: `/menu/find-menu-list`,
-                data: { storeName: `${storeName}` }, // storeName 값을 전달
-                dataType: 'json',
-                success: function (data) {
-                    let menuData = displayMenuItems(data);
-                    createMenuItems(menuData);
-
-                    console.log(menuData);
-
-                    setInterval(function () {
-                        $("#menu-list .menu-item").fadeOut(2000, function () {
-                            createMenuItems(menuData);
-                            $(this).remove();
-                        });
-                    }, 7000);
-                },
-                error: function (error) {
-                    console.log('Ajax 요청 실패:', error);
-                }
-            });
-        }
-    });
-</script>
-
+        });
+    </script>
+</th:block>
 </body>
 </html>

@@ -46,6 +46,7 @@ public class KioskDataController {
                 filePath = filePath.replace("가게이름", storeName);
 
                 List<Menu> menuListNoImage = kioskFileService.readMenuDataFormFile(filePath,storeName);
+
                 List<Menu> menuList = menuService.menuEntitySetImagePath(menuListNoImage,storeName);
 
                 menuService.saveMenuList(menuList);

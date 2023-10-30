@@ -1,183 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+      layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
-    body, h1, h2, h3, p, ul, li {
-        margin: 0;
-        padding: 0;
-    }
-    /* Header styles */
-    .header {
-        background-color: transparent; /* 투명한 배경 */
-        /*position: fixed;*/
-        width: 100%;
-    }
+<th:block layout:fragment="css">
 
-    /* Logo styles */
-    .logo {
-        position: absolute;
-        top: 25px;
-        left: 20px;
-        color: #333333;
-        font-size: 24px;
-        font-weight: bold;
-    }
+    <style>
+        /*메뉴 소개 스타일링*/
+        .menu-addition-description {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    /* Menu styles */
-    .menu {
-        background-color: #ffffff; /* 헤더 바의 배경색 */
-        padding: 30px 0; /* 높이를 높임 */
-        border-bottom: 1px solid #e0e0e0;
-        text-align: right;
-    }
+        .menu-addition-description h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .menu-addition-description p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .menu-addition-description ul {
+            margin-left: 20px;
+        }
+        .menu-addition-description ul li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
 
-    .menu ul {
-        list-style: none;
-    }
-
-    .menu ul li {
-        display: inline-block;
-        margin-right: 80px; /* 메뉴 간격을 조정 */
-    }
-
-    .menu ul li a {
-        text-decoration: none;
-        color: #333333;
-        font-weight: bold;
-    }
-    /* Hover effect */
-    .menu ul li a:hover {
-        color: #009aff;
-    }
-
-    /*메뉴 소개 스타일링*/
-    .menu-addition-description {
-        background-color: #ffffff;
-        color: #000000;
-        padding: 20px;
-        border-radius: 10px;
-        width: 90%;
-        margin: 20px auto;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .menu-addition-description h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-    .menu-addition-description p {
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-    .menu-addition-description ul {
-        margin-left: 20px;
-    }
-    .menu-addition-description ul li {
-        font-size: 16px;
-        margin-bottom: 5px;
-    }
-
-    /*메뉴 추가 박스 스타일링*/
-    .custom-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: black;
-        color: #ffffff;
-        font-size: 18px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        float: right;
-        margin-right: 3%;
-    }
-    .custom-button:hover {
-        background-color: #0078d4;
-    }
+        /*메뉴 추가 박스 스타일링*/
+        .custom-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: black;
+            color: #ffffff;
+            font-size: 18px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            float: right;
+            margin-right: 3%;
+        }
+        .custom-button:hover {
+            background-color: #0078d4;
+        }
 
 
-    /*MenuBox*/
-    #product-container{
-        width: 90%;
-        margin: auto;
-    }
-    .product-box {
-        border: 1px solid #0b2e13;
-        color: black;
-        border-radius: 3px;
-        padding: 10px;
-        width: 14%;
-        margin: 10px;
-        display: inline-block;
-    }
+        /*MenuBox*/
+        #product-container{
+            width: 90%;
+            margin: auto;
+        }
+        .product-box {
+            border: 1px solid #0b2e13;
+            color: black;
+            border-radius: 3px;
+            padding: 10px;
+            width: 14%;
+            margin: 10px;
+            display: inline-block;
+        }
 
-    input[type="file"], input[type="text"] {
-        display: block;
-        margin-bottom: 5px;
-        padding: 5px;
-    }
+        input[type="file"], input[type="text"] {
+            display: block;
+            margin-bottom: 5px;
+            padding: 5px;
+        }
 
-    #add-product-button {
-        display: block;
-        margin-top: 10px;
-    }
-    .delete-btn{
-        float: right;
-        color: white;
-        background: black;
-        border: none;
-        border-radius: 3px;
-    }
-    .submit-btn-box{
-        display: none;
-    }
-
-
-
-
-
-</style>
+        #add-product-button {
+            display: block;
+            margin-top: 10px;
+        }
+        .delete-btn{
+            float: right;
+            color: white;
+            background: black;
+            border: none;
+            border-radius: 3px;
+        }
+        .submit-btn-box{
+            display: none;
+        }
+    </style>
+</th:block>
 <body>
-<header class="header">
-    <div class="logo">KioskEase Pro</div>
-    <nav class="menu">
+
+<div layout:fragment="content">
+    <div class="menu-addition-description">
+        <h1>새로운 메뉴 추가</h1>
+        <p>메뉴 추가 버튼을 클릭하면 새로운 메뉴 항목을 손쉽게 추가할 수 있는 상자가 나타납니다. 아래의 입력란을 사용하여 메뉴 항목의 세부 정보를 정확하게 입력해주세요.</p>
+
         <ul>
-            <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
-            <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
-            <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
-            <li><a href="http://localhost:8080/user/join">Create User / Business</a></li>
+            <li><strong>이미지:</strong> 이미지를 삽입해주세요. [ 가능하면 이미지의 크기는 100 x 100으로 통일해주세요 ]</li>
+            <li><strong>가격:</strong> 메뉴 항목의 가격을 입력해주세요. [EX : 5000]</li>
+            <li><strong>카테고리:</strong> 메뉴 항목을 속하는 카테고리를 선택하거나 입력해주세요.[EX : 커피]</li>
         </ul>
-    </nav>
-</header>
 
-<div class="menu-addition-description">
-    <h1>새로운 메뉴 추가</h1>
-    <p>메뉴 추가 버튼을 클릭하면 새로운 메뉴 항목을 손쉽게 추가할 수 있는 상자가 나타납니다. 아래의 입력란을 사용하여 메뉴 항목의 세부 정보를 정확하게 입력해주세요.</p>
+        <p>메뉴 항목을 추가하고 나면, 아래에 목록으로 정리되어 편리하게 확인할 수 있습니다. 추가하려는 메뉴 항목의 정보를 정확하게 입력하여 메뉴판을 업데이트해보세요.</p>
+    </div>
+        <div>
+            <button id="add-product-button" class="custom-button">메뉴 추가</button>
+        </div>
+        <form id="product-container">
 
-    <ul>
-        <li><strong>이미지:</strong> 이미지를 삽입해주세요. [ 가능하면 이미지의 크기는 100 x 100으로 통일해주세요 ]</li>
-        <li><strong>가격:</strong> 메뉴 항목의 가격을 입력해주세요. [EX : 5000]</li>
-        <li><strong>카테고리:</strong> 메뉴 항목을 속하는 카테고리를 선택하거나 입력해주세요.[EX : 커피]</li>
-    </ul>
-
-    <p>메뉴 항목을 추가하고 나면, 아래에 목록으로 정리되어 편리하게 확인할 수 있습니다. 추가하려는 메뉴 항목의 정보를 정확하게 입력하여 메뉴판을 업데이트해보세요.</p>
+        </form>
+        <div class="submit-btn-box">
+            <button id="submit-btn" class="custom-button">메뉴 파일 다운로드</button>
+        </div>
 </div>
-    <div>
-        <button id="add-product-button" class="custom-button">메뉴 추가</button>
-    </div>
-    <form id="product-container">
+<th:block layout:fragment="script">
 
-    </form>
-    <div class="submit-btn-box">
-        <button id="submit-btn" class="custom-button">메뉴 파일 다운로드</button>
-    </div>
     <script th:inline="javascript">
 
         $(document).ready(function() {
@@ -240,11 +182,14 @@
             $("#submit-btn").on("click", function () {
                 sendFileData();
 
-                //메뉴 횟수를 매개변수로 전달
-                sendTextData(menuCount);
+                // 메뉴 횟수를 매개변수로 전달
+                setTimeout(function() {
+                    sendTextData(menuCount);
+                }, 3000); // 3초 뒤에 실행
 
-                //5초뒤에 다운로드 진행
+                // 5초 뒤에 다운로드 진행
                 downloadFolderAndCreateKioskPage();
+
             });
 
             // 실제 파일 텍스트를 전송하는 함수
@@ -313,7 +258,7 @@
             const kioskCreateURL = "http://localhost:8080/kiosk/create";
             let delayMilliseconds = 5000; // 5초 대기
 
-            //3초 대기 후 다운로드 진행
+            //5초 대기 후 다운로드 진행
             setTimeout(function (){
                 navigateToNewPage(folderDownloadURL);
             },delayMilliseconds);
@@ -331,9 +276,8 @@
             }, delayMilliseconds);
 
         }
-
-
     </script>
+</th:block>
 </body>
 
 </html>

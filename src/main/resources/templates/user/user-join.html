@@ -167,6 +167,11 @@
               page2.fadeIn(1000);
             });
           }
+          if (url === "businessRegister"){
+            location.href="http://localhost:8080/user/login";
+
+
+          }
         },
         error: function (request, status, error) {
           alert("code" + request.status + "\n" + "message" + request.responseText + "\n" + "error" + error);

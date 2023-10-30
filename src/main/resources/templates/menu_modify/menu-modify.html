@@ -1,62 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+      layout:decorate="~{layouts/layout1}">
 <head>
   <meta charset="UTF-8">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <title>메뉴 수정</title>
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
-    body, h1, h2, h3, p, ul, li {
-      margin: 0;
-      padding: 0;
-    }
-    /* Header styles */
-    .header {
-      background-color: transparent; /* 투명한 배경 */
-      width: 100%;
-    }
-
-    /* Logo styles */
-    .logo {
-      position: absolute;
-      top: 25px;
-      left: 20px;
-      color: #333333;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    /* Menu styles */
-    .menu {
-      background-color: #ffffff; /* 헤더 바의 배경색 */
-      padding: 30px 0; /* 높이를 높임 */
-      border-bottom: 1px solid #e0e0e0;
-      text-align: right;
-    }
-
-    .menu ul {
-      list-style: none;
-    }
-
-    .menu ul li {
-      display: inline-block;
-      margin-right: 80px; /* 메뉴 간격을 조정 */
-    }
-
-    .menu ul li a {
-      text-decoration: none;
-      color: #333333;
-      font-weight: bold;
-    }
-    /* Hover effect */
-    .menu ul li a:hover {
-      color: #009aff;
-    }
-
-
     /* 수정된 레이아웃 (바디 부분 변경) */
     .modify {
       display: flex;
@@ -112,34 +63,25 @@
   </style>
 </head>
 <body>
+<div layout:fragment="content">
 
-<header class="header">
-  <div class="logo">KioskEase Pro</div>
-  <nav class="menu">
-    <ul>
-      <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
-      <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
-      <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
-      <li><a href="http://localhost:8080/user/join">Create User / Business</a></li>
-    </ul>
-  </nav>
-</header>
+  <div class="modify">
+    <form action="/modify-menu" method="post" class="modify-form">
+      <div class="img-box">
+        <img id="imageBox" th:src="${menuDTO.image}" alt="해당 메뉴 이미지">
+      </div>
 
-<div class="modify">
-  <form action="/modify-menu" method="post" class="modify-form">
-    <div class="img-box">
-      <img id="imageBox" th:src="${menuDTO.image}" alt="해당 메뉴 이미지">
-    </div>
+      <input type="hidden" name="id" th:value="${menuDTO.id}" placeholder="메뉴 이름">
+      <input type="text" placeholder="이름" name="name" th:value="${menuDTO.name}" >
+      <input type="text" placeholder="가격" name="price" th:value="${menuDTO.price}">
+      <input type="text" placeholder="카테고리" name="category" th:value="${menuDTO.category}">
+      <input type="text" placeholder="부과 설명" name="description" th:value="${menuDTO.description}">
+      <input type="text" placeholder="수량" name="amount" th:value="${menuDTO.amount}">
 
-    <input type="hidden" name="id" th:value="${menuDTO.id}" placeholder="메뉴 이름">
-    <input type="text" placeholder="이름" name="name" th:value="${menuDTO.name}" >
-    <input type="text" placeholder="가격" name="price" th:value="${menuDTO.price}">
-    <input type="text" placeholder="카테고리" name="category" th:value="${menuDTO.category}">
-    <input type="text" placeholder="부과 설명" name="description" th:value="${menuDTO.description}">
-    <input type="text" placeholder="수량" name="amount" th:value="${menuDTO.amount}">
-
-    <button type="submit">수정</button>
-  </form>
+      <button type="submit">수정</button>
+    </form>
+  </div>
 </div>
+
 </body>
 </html>

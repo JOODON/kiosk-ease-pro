@@ -1,63 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
+      layout:decorate="~{layouts/layout1}">
+      <!--들어갈 영역 선택-->
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<th:block layout:fragment="css">
 
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
-    body, h1, h2, h3, p, ul, li {
-      margin: 0;
-      padding: 0;
-    }
-    /* Header styles */
-    .header {
-      background-color: transparent; /* 투명한 배경 */
-      /*position: fixed;*/
-      width: 100%;
-    }
-
-    /* Logo styles */
-    .logo {
-      position: absolute;
-      top: 25px;
-      left: 20px;
-      color: #333333;
-      font-size: 24px;
-      font-weight: bold;
-    }/* Menu styles */
-    .menu {
-      background-color: #ffffff; /* 헤더 바의 배경색 */
-      padding: 30px 0; /* 높이를 높임 */
-      border-bottom: 1px solid #e0e0e0;
-      text-align: right;
-    }
-
-    .menu ul {
-      list-style: none;
-    }
-
-    .menu ul li {
-      display: inline-block;
-      margin-right: 80px; /* 메뉴 간격을 조정 */
-    }
-
-    .menu ul li a {
-      text-decoration: none;
-      color: #333333;
-      font-weight: bold;
-    }
-    /* Hover effect */
-    .menu ul li a:hover {
-      color: #009aff;
-    }
-
-
-
-    /* intro styles */
     .intro{
       display: flex;
       margin-top: 0.3%;
@@ -94,212 +45,122 @@
     .section .section-box p{
       margin-top: 20%;
     }
-
-
-    .footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 30px 0;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .developer p {
-      font-size: 12px;
-    }
-    .instruction-form input {
-      height: 30px;
-      padding: 5px;
-      border: none;
-      border-radius: 5px;
-    }
-    .instruction-form button {
-      height: 40px;
-      padding: 0 15px;
-      background-color: #000000;
-      color: #ffffff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .instruction-form button:hover {
-      background-color: #009aff;
-    }
-    .footer-content{
-      margin-top: 4%;
-    }
-
-
-  </style>
+</style>
+</th:block>
 </head>
 <body>
-<header class="header">
-  <div class="logo">KioskEase Pro</div>
-  <nav class="menu">
-    <ul>
-      <li><a href="http://localhost:8080/kiosk/create">Create Kiosk</a></li>
-      <li><a href="http://localhost:8080/menu/">MY Store Menu</a></li>
-      <li><a href="http://localhost:8080/menu/new">Create Kiosk Directory</a></li>
-      <li><a href="http://localhost:8080/user/join">Create User / Business</a></li>
-    </ul>
-  </nav>
-</header>
-<div class="intro">
-  <div class="main-banner-img">
-    <img id="img-container" src="/image/main-banner-admin.jpg" alt="">
-  </div>
 
-  <div class="site-intro" id="site-intro-box">
-    <h2 id="intro-title">독립 기업주를 위한 경제적인 Kiosk 솔루션</h2>
+<div layout:fragment="content">
+  <div class="intro">
+    <div class="main-banner-img">
+      <img id="img-container" src="/image/main-banner-admin.jpg" alt="">
+    </div>
 
-    <p id="intro-text" style="margin-top: 10px">
-      혼자 사업을 운영하시는 분들을 위한 편리한 솔루션, KioskEase Pro입니다.
-      <br>
-      <br>
-      우리는 1인 사업자들의 노고와 어려움을 이해하며, 저렴한 비용으로 품질 좋은 키오스크를 제공합니다.
-      <br>
-      <br>
-      KioskEase Pro는 주문과 결제를 자동화하여 매장 운영을 원활하게 돕는 동시에, 사용자들에게는 더욱 간편한 주문과 픽업 서비스를 제공합니다. 매장 방문 고객들이 편리하게 주문하고, 키오스크에서 주문 상태를 확인할 수 있는 기능까지 제공합니다.
-      <br>
-      <br>
-      우리의 목표는 작은 사업장에서도 효율적인 운영을 가능하게 하는 것입니다. KioskEase Pro를 통해 매장 운영의 빈틈을 메우고, 더 많은 시간을 고객과 상호 작용에 할애할 수 있도록 돕겠습니다.
-      <br>
-      <br>
-      함께 우리의 서비스를 이용하여 더 나은 비즈니스 환경을 만들어가요. KioskEase Pro와 함께라면, 더 많은 성공과 편의가 기다리고 있습니다.
-      <br>
-    </p>
-  </div>
-</div>
+    <div class="site-intro" id="site-intro-box">
+      <h2 id="intro-title">독립 기업주를 위한 경제적인 Kiosk 솔루션</h2>
 
-<div class="section">
-  <div class="section-box">
-    <h3>1인 사업자 맞춤 솔루션</h3>
-    <p>
-      KioskEase Pro는 예산과 시간에 적합한 <br>
-      1인 사업자를 위한 맞춤형 솔루션으로,<br>
-      운영 효율성과 경제적 부담 경감을 <br>
-      제공합니다.
-    </p>
-  </div>
-
-  <div class="section-box">
-    <h3>간편한 주문 및 픽업</h3>
-    <p>
-      사용자들은 KioskEase Pro를 통해 <br>
-      간편하게 주문하고, <br>
-      픽업 시간을 확인하며, <br>
-      불필요한 대기 시간을 줄일 수 있습니다.
-    </p>
-  </div>
-
-  <div class="section-box">
-    <h3>작은 사업장의 파트너</h3>
-    <p>
-      KioskEase Pro는 작은 사업장에서도<br>
-      효율적인 운영을 돕는 파트너로서의 <br>
-      역할을 합니다.
-    </p>
-  </div>
-</div>
-
-<footer class="footer">
-  <form class="instruction-form">
-    <h4>"웹 설명을 이메일로 받아보세요."</h4>
-    <input type="email" placeholder="Email">
-    <button type="submit" class="custom-button">SubMit</button>
-  </form>
-
-  <div class="footer-content">
-    <p>&copy; 2023 KioskEase Pro. All rights reserved.</p>
-  </div>
-
-  <div class="developer-info">
-    <div class="developer">
-      <h4>개발자 :부천대학교 주동호</h4>
-      <p>주소 : 인천광역시</p>
-      <p>전화번호 : +82) 010-7761-8482</p>
+      <p id="intro-text" style="margin-top: 10px">
+        혼자 사업을 운영하시는 분들을 위한 편리한 솔루션, KioskEase Pro입니다.
+        <br>
+        <br>
+        우리는 1인 사업자들의 노고와 어려움을 이해하며, 저렴한 비용으로 품질 좋은 키오스크를 제공합니다.
+        <br>
+        <br>
+        KioskEase Pro는 주문과 결제를 자동화하여 매장 운영을 원활하게 돕는 동시에, 사용자들에게는 더욱 간편한 주문과 픽업 서비스를 제공합니다. 매장 방문 고객들이 편리하게 주문하고, 키오스크에서 주문 상태를 확인할 수 있는 기능까지 제공합니다.
+        <br>
+        <br>
+        우리의 목표는 작은 사업장에서도 효율적인 운영을 가능하게 하는 것입니다. KioskEase Pro를 통해 매장 운영의 빈틈을 메우고, 더 많은 시간을 고객과 상호 작용에 할애할 수 있도록 돕겠습니다.
+        <br>
+        <br>
+        함께 우리의 서비스를 이용하여 더 나은 비즈니스 환경을 만들어가요. KioskEase Pro와 함께라면, 더 많은 성공과 편의가 기다리고 있습니다.
+        <br>
+      </p>
     </div>
   </div>
 
-</footer>
+  <div class="section">
+    <div class="section-box">
+      <h3>1인 사업자 맞춤 솔루션</h3>
+      <p>
+        KioskEase Pro는 예산과 시간에 적합한 <br>
+        1인 사업자를 위한 맞춤형 솔루션으로,<br>
+        운영 효율성과 경제적 부담 경감을 <br>
+        제공합니다.
+      </p>
+    </div>
 
-<script>
+    <div class="section-box">
+      <h3>간편한 주문 및 픽업</h3>
+      <p>
+        사용자들은 KioskEase Pro를 통해 <br>
+        간편하게 주문하고, <br>
+        픽업 시간을 확인하며, <br>
+        불필요한 대기 시간을 줄일 수 있습니다.
+      </p>
+    </div>
+
+    <div class="section-box">
+      <h3>작은 사업장의 파트너</h3>
+      <p>
+        KioskEase Pro는 작은 사업장에서도<br>
+        효율적인 운영을 돕는 파트너로서의 <br>
+        역할을 합니다.
+      </p>
+    </div>
+  </div>
+
+</div>
+<th:block layout:fragment="script">
+  <script>
+
   $(function () {
     let siteIntroBox = $("#site-intro-box");
     let clickCount = 0;
 
-    function merchantIntro() {
+    function updateIntro(title, text) {
       siteIntroBox.fadeOut(1000, function () {
         siteIntroBox.html(`
-                <h2>독립 기업주를 위한 경제적인 Kiosk 솔루션</h2>
-                <p style="margin-top: 10px">
-                    혼자 사업을 운영하시는 분들을 위한 편리한 솔루션, KioskEase Pro입니다.<br>
-                    <br>
-                    우리는 1인 사업자들의 노고와 어려움을 이해하며, 저렴한 비용으로 품질 좋은 키오스크를 제공합니다.<br>
-                    <br>
-                    KioskEase Pro는 주문과 결제를 자동화하여 매장 운영을 원활하게 돕는 동시에, 사용자들에게는 더욱 간편한 주문과 픽업 서비스를 제공합니다. 매장 방문 고객들이 편리하게 주문하고, 키오스크에서 주문 상태를 확인할 수 있는 기능까지 제공합니다.<br>
-                    <br>
-                    우리의 목표는 작은 사업장에서도 효율적인 운영을 가능하게 하는 것입니다. KioskEase Pro를 통해 매장 운영의 빈틈을 메우고, 더 많은 시간을 고객과 상호 작용에 할애할 수 있도록 돕겠습니다.<br>
-                    <br>
-                    함께 우리의 서비스를 이용하여 더 나은 비즈니스 환경을 만들어가요. KioskEase Pro와 함께라면, 더 많은 성공과 편의가 기다리고 있습니다.
-                    <br>
-                </p>
-                `);
+                <h2>${title}</h2>
+                <p style="margin-top: 10px">${text}</p>
+            `);
         siteIntroBox.fadeIn(1000);
       });
     }
 
-    function userIntro() {
-      siteIntroBox.fadeOut(1000, function () {
-        siteIntroBox.html(`
-                <h2>KioskEase Pro 어플을 소개합니다!</h2>
-                <p style="margin-top: 10px">
-                    이제 어플을 통해 매장 방문 없이도 쉽고 빠르게 주문하고 픽업할 수 있습니다.<br>
-                    <br>
-                    KioskEase Pro 어플은 사용자 친화적인 인터페이스로 설계되어 있어서, 주문 과정이 간편하고 편리하게 이루어집니다.<br>
-                    <br>
-                    어플을 통해 원하는 제품을 선택하고 주문할 때, 길게 기다릴 필요가 없어집니다. 주문 상태를 언제든 확인할 수 있어서, 언제 어디서나 주문 준비 상태를 확인하고 픽업 시간을 알 수 있습니다.<br>
-                    <br>
-                    더 이상 번거로운 주문 과정을 겪을 필요가 없습니다. KioskEase Pro 어플로 당신의 주문을 편리하게 관리하고, 시간을 아낄 수 있습니다. 사용자 친화적인 서비스로 당신의 편리한 쇼핑 경험을 완성하세요!<br>
-                    <br>
-                    어플을 지금 다운로드하고, 저희와 함께 더 쉽고 빠른 주문과 픽업 서비스를 누려보세요!<br>
-                </p>
-                `);
-        siteIntroBox.fadeIn(1000);
-      });
-    }
-
-    let imgContainerBox = $("#img-container")
-
-    function userImage(){
-      imgContainerBox.fadeOut(1000,function (){
-        imgContainerBox.attr("src","/image/main-banner-user.jpg");
+    function userImage() {
+      imgContainerBox.fadeOut(1000, function () {
+        imgContainerBox.attr("src", "/image/main-banner-user.jpg");
       });
       imgContainerBox.fadeIn(500);
     }
 
-    function adminImage(){
-      imgContainerBox.fadeOut(1000,function (){
-        imgContainerBox.attr("src","/image/main-banner-admin.jpg");
+    function adminImage() {
+      imgContainerBox.fadeOut(1000, function () {
+        imgContainerBox.attr("src", "/image/main-banner-admin.jpg");
       });
-
       imgContainerBox.fadeIn(500);
     }
 
-    // 함수 번갈아가며 호출하는 타이머 설정
-    setInterval(function () {
+    function rotateContent() {
       if (clickCount % 2 === 0) {
         userImage();
-        userIntro();
+        updateIntro("KioskEase Pro 어플을 소개합니다!", "이제 어플을 통해 매장 방문 없이도 쉽고 빠르게 주문하고 픽업할 수 있습니다.<br><br>어플을 지금 다운로드하고, 저희와 함께 더 쉽고 빠른 주문과 픽업 서비스를 누려보세요!");
       } else {
         adminImage();
-        merchantIntro();
+        updateIntro("독립 기업주를 위한 경제적인 Kiosk 솔루션", "혼자 사업을 운영하시는 분들을 위한 편리한 솔루션, KioskEase Pro입니다.<br><br>우리의 목표는 작은 사업장에서도 효율적인 운영을 가능하게 하는 것입니다. KioskEase Pro와 함께라면, 더 많은 성공과 편의가 기다리고 있습니다.");
       }
       clickCount++;
-    }, 9000);
+    }
+
+    // 초기화
+    let imgContainerBox = $("#img-container");
+    rotateContent();
+
+    // 함수 번갈아가며 호출하는 타이머 설정
+    setInterval(rotateContent, 9000);
   });
+
 </script>
+</th:block>
 </body>
 </html>
