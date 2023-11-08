@@ -5,6 +5,7 @@ import com.example.kioskeasepro.dto.MenuDirectoryDTO;
 import com.example.kioskeasepro.service.BusinessService;
 import com.example.kioskeasepro.service.MenuDirectoryService;
 import com.example.kioskeasepro.service.ZipUtilService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class MenuPostDataController {
 
     private final BusinessService businessService;
     @RequestMapping(value = "/new-post-text",method = RequestMethod.POST)
-    public ResponseEntity<String> processTextData(@RequestBody MenuDirectoryDTO menuDirectoryDTO,Authentication authentication) throws IOException {
+    public ResponseEntity<String> processTextData(@RequestBody MenuDirectoryDTO menuDirectoryDTO, Authentication authentication) throws IOException {
         logger.info("Processing Text Data");
 
         String storeName = businessService.findBusinessNameByAuthentication(authentication);
@@ -62,7 +63,7 @@ public class MenuPostDataController {
     }
 
     @PostMapping(value = "/new-post-file")
-    public ResponseEntity<String> processFileData(@RequestParam("files") List<MultipartFile> files, Authentication authentication) throws IOException {
+    public ResponseEntity<String> processMenuData(@RequestParam("files") List<MultipartFile> files, Authentication authentication) throws IOException {
         logger.info("Processing file data");
         //로그
         String storeName = businessService.findBusinessNameByAuthentication(authentication);

@@ -16,9 +16,14 @@ public class UserViewController {
     }
     //유저 로그인 페이지
     @RequestMapping("/login")
-    public String shwUserLoginPage(){
+    public String showUserLoginPage(){
 
         return "user/user-login";
     }
 
+    @RequestMapping("/error")
+    public String showLoginErrorPage(){
+
+        return "user/login-error";
+    }
 }

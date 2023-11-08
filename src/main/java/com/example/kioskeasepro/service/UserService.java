@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -49,8 +52,21 @@ public class UserService {
 
     }
 
+    public User findByName(String name){
+        return userRepository.findByName(name);
+    }
 
+    public List<UserDTO>findAllUserList(){
+        List<UserDTO> userDTOList = new ArrayList<>();
 
+        List<User> userList = userRepository.findAll();
+
+        for (User user : userList) {
+            userDTOList.add(UserDTO.convertToUserDTO(user));
+        }
+
+        return userDTOList;
+    }
 
 
 }

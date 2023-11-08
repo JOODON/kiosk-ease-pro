@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout2}">
       <!--들어갈 영역 선택-->
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -131,14 +131,14 @@
       imgContainerBox.fadeOut(1000, function () {
         imgContainerBox.attr("src", "/image/main-banner-user.jpg");
       });
-      imgContainerBox.fadeIn(500);
+      imgContainerBox.fadeIn(1000);
     }
 
     function adminImage() {
       imgContainerBox.fadeOut(1000, function () {
         imgContainerBox.attr("src", "/image/main-banner-admin.jpg");
       });
-      imgContainerBox.fadeIn(500);
+      imgContainerBox.fadeIn(1000);
     }
 
     function rotateContent() {
@@ -157,7 +157,7 @@
     rotateContent();
 
     // 함수 번갈아가며 호출하는 타이머 설정
-    setInterval(rotateContent, 9000);
+    setInterval(rotateContent, 10000);
   });
 
 </script>

@@ -182,10 +182,6 @@
             $("#submit-btn").on("click", function () {
                 sendFileData();
 
-                // 메뉴 횟수를 매개변수로 전달
-                setTimeout(function() {
-                    sendTextData(menuCount);
-                }, 3000); // 3초 뒤에 실행
 
                 // 5초 뒤에 다운로드 진행
                 downloadFolderAndCreateKioskPage();
@@ -240,6 +236,10 @@
                     contentType: false,
                     processData: false,
                     success: function (result) {
+
+                        sendTextData(menuCount);
+                        //이미지 파일 저장이 성공적으로 되면 텍스트 파일을 저장시킴
+
                         console.log(result);
                         alert(result);
                     },

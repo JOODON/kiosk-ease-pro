@@ -10,12 +10,18 @@ import com.example.kioskeasepro.entity.UserBusiness;
 import com.example.kioskeasepro.repository.BusinessRepository;
 import com.example.kioskeasepro.repository.UserBusinessRepository;
 import com.example.kioskeasepro.repository.UserRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -71,6 +77,7 @@ public class BusinessService {
     }
 
     public String findBusinessNameByAuthentication(Authentication authentication){
+
         String username = ((PrincipalDetails) authentication.getPrincipal()).getUsername();
 
         User user = userRepository.findByUsername(username);
@@ -78,5 +85,22 @@ public class BusinessService {
         String name = user.getName();
 
         return businessRepository.findByBusinessOwnerName(name).getBusinessName();
+    }
+
+    public List<String> findAllBusinessName(){
+        List<String> businessNameList = new ArrayList<>();
+
+        List<Business> businesses = businessRepository.findAll();
+
+        for (Business business : businesses) {
+            businessNameList.add(business.getBusinessName());
+        }
+
+        return businessNameList;
+    }
+
+    public List<Business> findAlBusiness(){
+
+        return businessRepository.findAll();
     }
 }

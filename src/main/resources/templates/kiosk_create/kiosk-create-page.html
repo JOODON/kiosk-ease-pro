@@ -149,7 +149,7 @@
     </div>
 
     <div class="form-container">
-        <form action="/create-kisok" method="post" enctype="multipart/form-data">
+        <form action="/create-kiosk" method="post" enctype="multipart/form-data">
             <label for="fileInput" class="file-input-label">파일 선택</label>
             <input type="file" id="fileInput" name="zipFile" accept=".zip" class="custom-file-input">
             <button class="custom-button" type="submit">키오스크 생성하기</button>
@@ -164,10 +164,6 @@
             $('#fileInput').change(function() {
                 let fileName = $(this).val().split('\\').pop(); // 파일 이름 추출
                 $('#uploadedFileName').text('업로드된 파일: ' + fileName); // 파일 이름 표시
-            });
-
-            $(".custom-button").on("click",function (){
-                location.href="/kiosk/create"
             });
         });
     </script>

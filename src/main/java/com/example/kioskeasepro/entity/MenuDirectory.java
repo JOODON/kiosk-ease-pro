@@ -28,6 +28,7 @@ public class MenuDirectory {
     private int menuCount; // 메뉴 개수
 
     public static MenuDirectory convertToMenuDirectory(MenuDirectoryDTO menuDirectoryDTO) {
+
         MenuDirectory menuDirectory = new MenuDirectory();
 
         menuDirectory.setStoreName(menuDirectoryDTO.getStoreName());

@@ -1,5 +1,6 @@
 package com.example.kioskeasepro.dto;
 
+import com.example.kioskeasepro.entity.User;
 import lombok.*;
 
 @Data
@@ -20,4 +21,17 @@ public class UserDTO {
     private String phoneNumber; // 휴대폰번호
 
     private String gender; // 성별
+
+    public static UserDTO convertToUserDTO(User user){
+
+        return UserDTO.builder()
+                .id(user.getId())
+                .password(user.getPassword())
+                .username(user.getUsername())
+                .name(user.getName())
+                .gender(user.getGender())
+                .phoneNumber(user.getPhoneNumber())
+        .build();
+
+    }
 }

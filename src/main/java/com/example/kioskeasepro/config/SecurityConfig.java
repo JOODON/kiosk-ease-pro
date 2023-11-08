@@ -21,11 +21,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         // DispatcherType.FORWARD의 요청을 허용합니다. (즉, FORWARD 디스패처 타입의 요청은 모두 허용)
                         request
+
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                                 //URL 관련 설정
-                                .requestMatchers("/user/**","/").permitAll()
+                                .requestMatchers("/user/**","/","/api/**","/admin/**").permitAll()
+
                                 //폴더 [static] 폴더 및 하위 폴더들은 접근 허용 관련 설정
-                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
+
                                 // 그 외 모든 요청은 인증(authenticated)이 필요합니다.
                                 .anyRequest().authenticated()
                 )
@@ -39,7 +42,7 @@ public class SecurityConfig {
                         // 로그인 성공 후 리다이렉트될 URL을 설정
                         .defaultSuccessUrl("/", true)
                         // 로그인 페이지는 모든 사용자에게 허용
-                        .failureUrl("/login/error")
+                        .failureUrl("/user/error")
                         //로그인 실패시 리다이렉트될 URL 설정
                         .permitAll()
                 )
@@ -49,6 +52,7 @@ public class SecurityConfig {
         // 구성된 HttpSecurity를 빌드하여 SecurityFilterChain을 반환합니다.
         return http.build();
     }
+    //패스워드 암호화를 인한 함수
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
