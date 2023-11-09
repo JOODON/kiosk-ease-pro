@@ -12,9 +12,18 @@
         <div class="logo">KioskEase Pro</div>
         <nav class="menu">
             <ul>
-                <li><a th:href="@{/kiosk/create}">Create Kiosk</a></li>
-                <li><a th:href="@{/menu/}">MY Store Menu</a></li>
-                <li><a th:href="@{/menu/new}">Create Kiosk Directory</a></li>
+                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                    <a th:href="@{/admin/management}">User Management</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/kiosk/create}">Create Kiosk</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/menu/}">MY Store Menu</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/menu/new}">Create Kiosk Directory</a>
+                </li>
                 <li id="user-current">
                     <a th:href="@{/user/login}" sec:authorize="isAnonymous()">Login</a>
                     <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
@@ -23,7 +32,6 @@
         </nav>
     </header>
 </div>
-
 
 </body>
 </html>

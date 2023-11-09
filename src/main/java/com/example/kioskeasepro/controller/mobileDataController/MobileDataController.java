@@ -25,7 +25,7 @@ public class MobileDataController {
     @RequestMapping(value = "/find-Business-list", method = RequestMethod.GET)
     public ResponseEntity<List<Business>> presentBusinessName() {
 
-        List<Business> businessList = businessService.findAlBusiness();
+        List<Business> businessList = businessService.findAllBusiness();
 
         return ResponseEntity.ok(businessList);
     }

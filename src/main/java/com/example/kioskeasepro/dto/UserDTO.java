@@ -22,7 +22,11 @@ public class UserDTO {
 
     private String gender; // 성별
 
-    public static UserDTO convertToUserDTO(User user){
+    private String role; //Role 역할
+
+    private String storeName;
+
+    public static UserDTO convertToUserDTO(User user,String storeName){
 
         return UserDTO.builder()
                 .id(user.getId())
@@ -31,6 +35,8 @@ public class UserDTO {
                 .name(user.getName())
                 .gender(user.getGender())
                 .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .storeName(storeName)
         .build();
 
     }

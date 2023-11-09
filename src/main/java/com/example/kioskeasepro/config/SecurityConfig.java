@@ -24,13 +24,15 @@ public class SecurityConfig {
 
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                                 //URL 관련 설정
-                                .requestMatchers("/user/**","/","/api/**","/admin/**").permitAll()
+                                .requestMatchers("/user/**","/","/api/**").permitAll()
 
                                 //폴더 [static] 폴더 및 하위 폴더들은 접근 허용 관련 설정
                                 .requestMatchers("/css/**", "/js/**", "/image/**").permitAll()
 
+                                .requestMatchers("/admin/**").hasRole("ADMIN") // ADMIN 권한을 가진 사용자만 접근 가능
                                 // 그 외 모든 요청은 인증(authenticated)이 필요합니다.
                                 .anyRequest().authenticated()
+
                 )
 
                 // 폼 로그인(form login)을 구성

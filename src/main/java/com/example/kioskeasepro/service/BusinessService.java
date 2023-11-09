@@ -87,20 +87,24 @@ public class BusinessService {
         return businessRepository.findByBusinessOwnerName(name).getBusinessName();
     }
 
-    public List<String> findAllBusinessName(){
-        List<String> businessNameList = new ArrayList<>();
+//    public List<String> findAllBusinessName(){
+//        List<String> businessNameList = new ArrayList<>();
+//
+//        List<Business> businesses = businessRepository.findAll();
+//
+//        for (Business business : businesses) {
+//            businessNameList.add(business.getBusinessName());
+//        }
+//
+//        return businessNameList;
+//    }
 
-        List<Business> businesses = businessRepository.findAll();
-
-        for (Business business : businesses) {
-            businessNameList.add(business.getBusinessName());
-        }
-
-        return businessNameList;
-    }
-
-    public List<Business> findAlBusiness(){
+    public List<Business> findAllBusiness(){
 
         return businessRepository.findAll();
+    }
+
+    public String findByStoreName(String name){
+        return businessRepository.findByBusinessOwnerName(name).getBusinessName();
     }
 }

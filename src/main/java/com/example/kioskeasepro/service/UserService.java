@@ -20,6 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final BusinessService businessService;
     public String registerUser(UserDTO userDTO) {
         try {
             // 사용자 등록 성공한 경우
@@ -47,7 +48,7 @@ public class UserService {
                 .name(userDTO.getName())//이름
                 .phoneNumber(userDTO.getPhoneNumber())
                 .gender(userDTO.getGender())
-                .role("user")
+                .role("USER")
                 .build();
 
     }
@@ -61,8 +62,12 @@ public class UserService {
 
         List<User> userList = userRepository.findAll();
 
+        int idx = 0;
+
         for (User user : userList) {
-            userDTOList.add(UserDTO.convertToUserDTO(user));
+            String storeName = businessService.findByStoreName(userList.get(idx).getName());
+            userDTOList.add(UserDTO.convertToUserDTO(user,storeName));
+            idx++;
         }
 
         return userDTOList;
