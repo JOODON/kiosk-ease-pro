@@ -50,7 +50,7 @@ public class MenuDirectoryService {
             String originalFileName = file.getOriginalFilename();
 
             // 파일 이름 형식을 생성
-            String fileName = (i + 1) + "." + originalFileName;
+            String fileName = (i + 1) + "_" + originalFileName;
 
             // 저장할 이미지 파일의 경로
             String destinationPath = Paths.get(destinationDirectory, fileName).toString();

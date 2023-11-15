@@ -71,7 +71,7 @@
             display: inline-block;
         }
 
-        input[type="file"], input[type="text"] {
+        input[type="file"], input[type="text"],#categorySelect {
             display: block;
             margin-bottom: 5px;
             padding: 5px;
@@ -147,7 +147,14 @@
                 productBox.append("<input type='file' placeholder='이미지 업로드' name='imageFile' id='imageFile'>");
                 productBox.append("<input type='text' placeholder='상품명' name='name' id='name' class='name'>");
                 productBox.append("<input type='text' placeholder='가격' name='price' id='price' class='price'>");
-                productBox.append("<input type='text' placeholder='카테고리'name='category' id='category' class='category'>");
+                productBox.append("" +
+                    "<label for=\"categorySelect\"></label>\n" +
+                    "<select id=\"categorySelect\" name='category' id='category' class='category' style=\"width: 175px;\">\n" +
+                    "    <option value=\"음식\">음식</option>\n" +
+                    "    <option value=\"음료\">음료</option>\n" +
+                    "    <option value=\"디저트\">디저트</option>\n" +
+                    "</select>" +
+                    "");
                 productBox.append("<input type='text' placeholder='재고'name='amount' id='amount' class='amount'>");
                 productBox.append("<input class='delete-btn' type='button' placeholder='삭제' value='삭제'/>");
 
@@ -159,7 +166,7 @@
                         const reader = new FileReader();
                         reader.onload = function (e) {
                             imageBox.attr('src', e.target.result);
-                        };
+                        };d
                         reader.readAsDataURL(fileInput.files[0]);
                     }
                 });
@@ -254,8 +261,9 @@
             let storeName =	[[${storeName}]];
 
             // URL 정의.
-            const folderDownloadURL = "http://localhost:8080/menu/download-folder?storeName=" + storeName;
-            const kioskCreateURL = "http://localhost:8080/kiosk/create";
+            const folderDownloadURL = "/menu/download-folder?storeName=" + storeName;
+            const kioskCreateURL = "/kiosk/create";
+
             let delayMilliseconds = 5000; // 5초 대기
 
             //5초 대기 후 다운로드 진행

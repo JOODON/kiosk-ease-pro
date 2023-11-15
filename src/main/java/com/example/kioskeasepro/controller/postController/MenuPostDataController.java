@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -68,11 +69,15 @@ public class MenuPostDataController {
         //로그
         String storeName = businessService.findBusinessNameByAuthentication(authentication);
         //인증값으로 가게이름 가지고 오기
-        
-        String imageSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+ storeName +"\\menuImage";
+
         //파일 이미지 경로를 설정
+        String imageSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+ storeName +"\\menuImage";
+
+        String mobileImageSavePath = "C:\\Users\\User\\AndroidStudioProjects\\first_project\\app\\src\\main\\res\\drawable";
 
         menuDirectoryService.saveMultipleImageFiles(files,imageSavePath);
+        menuDirectoryService.saveMultipleImageFiles(files,mobileImageSavePath);
+        //이미지 파일이랑 모바일 파일을 둘다 저장
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }

@@ -23,9 +23,6 @@ public class UserManagementDataController {
     public ResponseEntity<List<UserDTO>> presentUser(){
         List<UserDTO> userDTOList = userService.findAllUserList();
 
-
-
-
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
     }
 }

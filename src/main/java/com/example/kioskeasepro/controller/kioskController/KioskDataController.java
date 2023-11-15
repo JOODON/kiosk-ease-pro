@@ -27,7 +27,7 @@ public class KioskDataController {
 
     private final CreateService createService;
     @RequestMapping(value = "/create-kiosk", method = RequestMethod.POST)
-    public String processZipData(@RequestParam("zipFile") MultipartFile menuZipFile) {
+    public ResponseEntity<String> processZipData(@RequestParam("zipFile") MultipartFile menuZipFile) {
         logger.info("Create Kiosk Menu");
 
         if (!menuZipFile.isEmpty()) {
@@ -50,13 +50,13 @@ public class KioskDataController {
                 menuService.saveMenuList(menuList);
                 createService.createMenuData(storeName);
 
-                return "디렉토리 제작에 성공하셨습니다."; // 이 부분이 페이지로의 리다이렉션을 수행
+                return ResponseEntity.status(HttpStatus.OK).body("디렉토리 제작에 성공하셨습니다.");
             } catch (Exception e) {
                 e.printStackTrace();
-                return "키오스크 제작에 실패하였습니다."; // 실패한 경우에는 에러 메세지
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("키오스크 제작에 실패하였습니다.");
             }
         } else {
-            return "파일을 첨부하여 다시 진행해주세요."; // Zip 파일이 없는 경우에도 에러 메세지
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("파일을 첨부하여 다시 진행해주세요.");
         }
     }
 

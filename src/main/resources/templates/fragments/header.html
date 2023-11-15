@@ -9,7 +9,7 @@
 <body>
 <div th:fragment="header">
     <header class="header">
-        <div class="logo">KioskEase Pro</div>
+        <div class="logo" onclick="location.href=`/`">KioskEase Pro</div>
         <nav class="menu">
             <ul>
                 <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">

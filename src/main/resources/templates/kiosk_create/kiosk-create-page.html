@@ -159,13 +159,43 @@
 </body>
 <th:block layout:fragment="script">
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // 파일 입력 상자가 변경될 때
-            $('#fileInput').change(function() {
+            $('#fileInput').change(function () {
                 let fileName = $(this).val().split('\\').pop(); // 파일 이름 추출
                 $('#uploadedFileName').text('업로드된 파일: ' + fileName); // 파일 이름 표시
             });
+
+            // 폼 제출 시
+            $('form').submit(function (event) {
+                event.preventDefault(); // 기본 동작 방지
+
+                let formData = new FormData(this);
+
+                // fetch API를 사용하여 비동기적으로 폼 데이터 전송
+                fetch($(this).attr('action'), {
+                    method: $(this).attr('method'),
+                    body: formData,
+                })
+                    .then(response => response.text())
+                    .then(message => {
+                        // 서버로부터 받은 응답 메시지를 표시
+                        showResultMessage(message);
+                    })
+                    .catch(error => {
+                        console.log('에러 발생:', error);
+                    });
+            });
+
+            // 결과 메시지를 표시하는 함수
+            function showResultMessage(message) {
+                alert(message);
+                if (confirm("메뉴 페이지로 이동하시겠습니까?")){
+                    location.href="/menu/"
+                }
+            }
         });
+
     </script>
 </th:block>
 </html>

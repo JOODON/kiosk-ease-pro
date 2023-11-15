@@ -106,10 +106,10 @@
       <input type="text" id="businessId" name="businessId" class="int" placeholder="사업자번호" required>
     </div>
     <div class="box">
-      <input type="text" id="businessOwnerName" name="businessOwnerName" class="int" placeholder="사업주 이름 { 회원가입 이름이랑 동일하게 해주세요 }" required>
+      <input type="text" id="businessOwnerName" name="businessOwnerName" class="int" placeholder="사업주 이름 { 회원가입 이름이랑 동일하게 해주세요 }" required readonly>
     </div>
     <div class="box">
-      <input type="text" id="businessName" name="businessName" class="int" placeholder="사업장명" required>
+      <input type="text" id="businessName" name="businessName" class="int" placeholder="사업장명" required >
     </div>
     <div class="box">
       <input type="text" id="businessAddress" name="businessAddress" class="int" placeholder="사업자 주소" required>
@@ -125,7 +125,7 @@
     const page2 = $('#page2');
     const nextButton = $('#nextButton');
     const registerButton = $('#registerButton');
-
+    let name = $(".name");
     // "가입" 버튼 클릭 시 두 번째 페이지에서 데이터를 서버로 전송
     nextButton.click(function () {
       let userOBJ = {
@@ -136,6 +136,7 @@
         gender: $("#gender").val()
       }
       registerOBJ(userOBJ, "userRegister");
+      businessNameInput(userOBJ.name);
     });
 
     // "다음" 버튼 클릭 시 첫 번째 페이지에서 두 번째 페이지로 전환
@@ -148,10 +149,12 @@
       }
 
       registerOBJ(businessOBJ,"businessRegister");
-
       // 비즈니스 정보 서버에 전달
 
     });
+    function businessNameInput(name){
+      $("#businessOwnerName").val(name);
+    }
     function registerOBJ(obj, url) {
       // AJAX 요청 전송 및 성공 또는 오류 처리 (이전 코드와 동일)
       $.ajax({
@@ -168,9 +171,7 @@
             });
           }
           if (url === "businessRegister"){
-            location.href="http://localhost:8080/user/login";
-
-
+            location.href="/user/login";
           }
         },
         error: function (request, status, error) {
