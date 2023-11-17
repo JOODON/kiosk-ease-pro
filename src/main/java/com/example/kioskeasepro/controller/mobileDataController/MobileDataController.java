@@ -1,6 +1,7 @@
 package com.example.kioskeasepro.controller.mobileDataController;
 
 
+import com.example.kioskeasepro.dto.CartDTO;
 import com.example.kioskeasepro.dto.MenuDTO;
 import com.example.kioskeasepro.dto.OrderDTO;
 import com.example.kioskeasepro.entity.Business;
@@ -38,9 +39,11 @@ public class MobileDataController {
     }
 
     @RequestMapping(value = "/save-order-data", method = RequestMethod.POST)
-    public ResponseEntity<String> saveOrderData(@RequestBody List<MenuDTO> orderList) {
+    public ResponseEntity<String> saveOrderData(@RequestBody CartDTO cartDTO) {
         // 주문 로직
-        System.out.println(orderList);
+        System.out.println(cartDTO.getTotalPrice());
+
+        System.out.println(cartDTO.getOrderList());
 
         return ResponseEntity.ok("주문 접수가 완료 되었습니다.");
     }

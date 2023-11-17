@@ -24,6 +24,9 @@ public class MenuDTO {
     private int amount;
 
     private String image;
+
+    private int quantity;
+
     public static MenuDTO convertToMenuDTO(Menu menuEntity){
         MenuDTO menuDTO = new MenuDTO();
 
