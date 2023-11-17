@@ -2,15 +2,14 @@ package com.example.kioskeasepro.controller.mobileDataController;
 
 
 import com.example.kioskeasepro.dto.MenuDTO;
+import com.example.kioskeasepro.dto.OrderDTO;
 import com.example.kioskeasepro.entity.Business;
 import com.example.kioskeasepro.service.BusinessService;
 import com.example.kioskeasepro.service.MenuService;
+import jakarta.persistence.criteria.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +35,14 @@ public class MobileDataController {
         List<MenuDTO> menuDTOS = menuService.findMenuByStoreName(storeName);
 
         return ResponseEntity.ok(menuDTOS);
+    }
+
+    @RequestMapping(value = "/save-order-data", method = RequestMethod.POST)
+    public ResponseEntity<String> saveOrderData(@RequestBody List<MenuDTO> orderList) {
+        // 주문 로직
+        System.out.println(orderList);
+
+        return ResponseEntity.ok("주문 접수가 완료 되었습니다.");
     }
 
 }

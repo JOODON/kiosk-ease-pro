@@ -166,7 +166,7 @@
                         const reader = new FileReader();
                         reader.onload = function (e) {
                             imageBox.attr('src', e.target.result);
-                        };d
+                        };
                         reader.readAsDataURL(fileInput.files[0]);
                     }
                 });
@@ -182,7 +182,6 @@
                     menuCount--;
                     hideOfSubmitBtn(menuCount);
                 });
-
             });
 
             // "+" 버튼 클릭 횟수를 전달하기 위한 클릭 이벤트 핸들러

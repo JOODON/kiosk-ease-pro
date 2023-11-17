@@ -73,10 +73,8 @@ public class MenuPostDataController {
         //파일 이미지 경로를 설정
         String imageSavePath = "C:\\SpringBoot\\kiosk-ease-pro\\src\\main\\resources\\static\\"+ storeName +"\\menuImage";
 
-        String mobileImageSavePath = "C:\\Users\\User\\AndroidStudioProjects\\first_project\\app\\src\\main\\res\\drawable";
 
         menuDirectoryService.saveMultipleImageFiles(files,imageSavePath);
-        menuDirectoryService.saveMultipleImageFiles(files,mobileImageSavePath);
         //이미지 파일이랑 모바일 파일을 둘다 저장
 
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
