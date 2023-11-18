@@ -12,6 +12,8 @@ public class CartDTO {
 
     private int totalPrice;
 
-    private List<Menu> orderList;
+    private String storeName;
 
+    private List<MenuDTO> orderList;
+    //메뉴들을 담을 메뉴 리스트
 }

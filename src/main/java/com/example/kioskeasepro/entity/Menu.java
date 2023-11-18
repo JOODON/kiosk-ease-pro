@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Data
 @ToString
@@ -29,6 +31,7 @@ public class Menu {
 
     private String storeName;
 
+    private int quantity;
 
     public static Menu convertToMenuEntity(MenuDTO menuDTO) {
         Menu menu = new Menu();
@@ -41,6 +44,9 @@ public class Menu {
         menu.setAmount(menuDTO.getAmount());
         menu.setImagePath(menuDTO.getImage());
         menu.setStoreName(menuDTO.getStoreName());
+        
+        //주문 목록이 들어올경우 이부분에서 바꿔주기
+        menu.setQuantity(menuDTO.getQuantity());
 
         return menu;
     }

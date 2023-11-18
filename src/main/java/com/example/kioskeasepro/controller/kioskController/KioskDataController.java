@@ -50,7 +50,7 @@ public class KioskDataController {
                 menuService.saveMenuList(menuList);
                 createService.createMenuData(storeName);
 
-                return ResponseEntity.status(HttpStatus.OK).body("디렉토리 제작에 성공하셨습니다.");
+                return ResponseEntity.status(HttpStatus.OK).body("디렉토리 제작에 성공하셨습니다.[ 매일 밤 00 :00 ~ 00 : 30  서버 재시작 입니다 그후 사진이 보여질 예정입니다.]");
             } catch (Exception e) {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("키오스크 제작에 실패하였습니다.");
