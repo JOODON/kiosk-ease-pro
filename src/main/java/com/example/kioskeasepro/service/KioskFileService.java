@@ -28,14 +28,13 @@ public class KioskFileService {
                     String name = data[0];
                     int price = Integer.parseInt(data[1]);
                     String category = data[2];
-                    int amount = Integer.parseInt(data[3]);
+                    String description = data[3];
 
                     Menu menu = new Menu();
 
                     menu.setPrice(price);
                     menu.setName(name);
-                    menu.setDescription(createDescriptionToMenuName());
-                    menu.setAmount(amount);
+                    menu.setDescription(description);
                     menu.setCategory(category);
                     menu.setStoreName(storeName);
 
@@ -46,10 +45,6 @@ public class KioskFileService {
 
         return fileMenuList;
     }
-    private  String createDescriptionToMenuName() {
-        return "인공 지능을 통한 메뉴 설명";
-    }
-
     public String findStoreName(String originalFileName) {
         // 파일 이름
         // 정규 표현식 패턴

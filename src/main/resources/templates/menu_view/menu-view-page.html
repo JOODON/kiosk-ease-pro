@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout
       layout:decorate="~{layouts/layout1}">
+
 <head>
     <meta charset="UTF-8">
     <title>Menu Display</title>
@@ -295,6 +296,24 @@
                     }
                 });
             }
+        });
+    </script>
+
+    <!--소켓 설정-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <script>
+        let socket = new SockJS('/websocket-endpoint');
+        let stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function(frame) {
+            stompClient.subscribe('/menu/', function(message) {
+                // 주문 정보 업데이트 처리
+                let orderStatus = message.body;
+                console.log("주문 상태 업데이트: " + orderStatus);
+                // 여기서 주문 정보를 UI에 업데이트하거나 다른 작업을 수행할 수 있습니다.
+            });
         });
     </script>
 </th:block>

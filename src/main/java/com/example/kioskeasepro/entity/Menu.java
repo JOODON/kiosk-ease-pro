@@ -24,8 +24,6 @@ public class Menu {
 
     private String category;
 
-    private int amount;
-    //재고
     private String imagePath;
     //이미지 경로
 
@@ -41,7 +39,6 @@ public class Menu {
         menu.setPrice(menuDTO.getPrice());
         menu.setDescription(menuDTO.getDescription());
         menu.setCategory(menuDTO.getCategory());
-        menu.setAmount(menuDTO.getAmount());
         menu.setImagePath(menuDTO.getImage());
         menu.setStoreName(menuDTO.getStoreName());
         

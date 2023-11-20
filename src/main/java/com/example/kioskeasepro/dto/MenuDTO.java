@@ -21,8 +21,6 @@ public class MenuDTO {
 
     private String description;
 
-    private int amount;
-
     private String image;
 
     private int quantity;
@@ -41,8 +39,6 @@ public class MenuDTO {
         menuDTO.setStoreName(menuEntity.getStoreName());
 
         menuDTO.setDescription(menuEntity.getDescription());
-
-        menuDTO.setAmount(menuEntity.getAmount());
 
         menuDTO.setImage(menuEntity.getImagePath());
 

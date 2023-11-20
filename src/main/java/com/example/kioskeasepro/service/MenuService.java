@@ -91,7 +91,6 @@ public class MenuService {
 
             menu.get().setName(menuDTO.getName());
             menu.get().setPrice(menuDTO.getPrice());
-            menu.get().setAmount(menuDTO.getAmount());
             menu.get().setDescription(menuDTO.getDescription());
             menu.get().setCategory(menuDTO.getCategory());
 

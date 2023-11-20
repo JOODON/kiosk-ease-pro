@@ -44,21 +44,9 @@ public class MobileDataController {
 
     @RequestMapping(value = "/save-order-data", method = RequestMethod.POST)
     public ResponseEntity<String> saveOrderData(@RequestBody CartDTO cartDTO) {
-        // 주문 로직
 
-        // 주문 가게 출력
-        System.out.println("주문 가게: " + cartDTO.getStoreName());
-
-
-        // 주문 메뉴 출력
-        System.out.println("주문 메뉴:");
-        for (MenuDTO menuDTO : cartDTO.getOrderList()) {
-            System.out.println("- " + menuDTO.getName() + " (" + menuDTO.getQuantity() + "개)");
-        }
-
-        // 주문 총 가격 출력
-        System.out.println("주문 총 가격: " + cartDTO.getTotalPrice() + " 원");
-
+        orderService.sendOrderStatus(cartDTO);
+        // 주문 정보를 WebSocket 으로 전송
         orderService.saveOrderData(cartDTO);
 
         return ResponseEntity.ok("주문 접수가 완료 되었습니다.");

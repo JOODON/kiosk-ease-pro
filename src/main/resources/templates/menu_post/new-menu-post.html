@@ -153,9 +153,10 @@
                     "    <option value=\"음식\">음식</option>\n" +
                     "    <option value=\"음료\">음료</option>\n" +
                     "    <option value=\"디저트\">디저트</option>\n" +
+                    "    <option value=\"기타\">기타</option>\n" +
                     "</select>" +
                     "");
-                productBox.append("<input type='text' placeholder='재고'name='amount' id='amount' class='amount'>");
+                productBox.append("<input type='text' placeholder='설명'name='description' id='description' class='description'>");
                 productBox.append("<input class='delete-btn' type='button' placeholder='삭제' value='삭제'/>");
 
                 // 파일 추가 메서드
@@ -200,7 +201,7 @@
                 let text = ""; // 변수를 빈 문자열로 초기화
                 for (let i = 0; i < menuCount; i++) {
                     // 각 필드에서 값을 가져와서 text에 추가
-                    text += `${$(".name")[i].value} / ${$(".price")[i].value} / ${$(".category")[i].value} / ${$(".amount")[i].value}\n`;
+                    text += `${$(".name")[i].value} / ${$(".price")[i].value} / ${$(".category")[i].value} / ${$(".description")[i].value}\n`;
                 }
 
                 let directoryOBJ = {
