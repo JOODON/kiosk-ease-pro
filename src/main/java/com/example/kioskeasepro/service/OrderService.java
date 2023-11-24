@@ -6,10 +6,12 @@ import com.example.kioskeasepro.dto.MenuDTO;
 import com.example.kioskeasepro.entity.Menu;
 import com.example.kioskeasepro.entity.Order;
 import com.example.kioskeasepro.entity.OrderMenu;
+import com.example.kioskeasepro.enums.OrderStatus;
 import com.example.kioskeasepro.repository.MenuRepository;
 import com.example.kioskeasepro.repository.OrderMenuRepository;
 import com.example.kioskeasepro.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.codehaus.groovy.control.messages.SimpleMessage;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -35,8 +37,9 @@ public class OrderService {
         //주문 정보 객체 선언
         order.setStoreName(cartDTO.getStoreName());
         order.setTotalPrice(cartDTO.getTotalPrice());
-
+        order.setStatus(OrderStatus.ORDER_RECEIVE);
         //주문 정보 필드 설정
+
         OrderMenu orderMenu = new OrderMenu();
         //주문 메뉴 객체 선언
         List<Menu> orderList = new ArrayList<>();
@@ -69,18 +72,27 @@ public class OrderService {
     public void sendOrderStatus(CartDTO cartDTO) {
         String receipt = getOrderSummary(cartDTO);
         simpMessagingTemplate.convertAndSend("/menu/", receipt);
+
     }
 
     private String getOrderSummary(CartDTO cartDTO) {
         // 주문 정보를 문자열로 합치기
-        String storeMessage = "주문 가게: " + cartDTO.getStoreName();
-        String menuMessage = "주문 메뉴:\n";
-        for (MenuDTO menuDTO : cartDTO.getOrderList()) {
-            menuMessage += "- " + menuDTO.getName() + " (" + menuDTO.getQuantity() + "개)\n";
-        }
-        String totalPriceMessage = "주문 총 가격: " + cartDTO.getTotalPrice() + " 원";
+        StringBuilder orderSummary = new StringBuilder();
 
-        return storeMessage + "\n" + menuMessage + "\n" + totalPriceMessage;
+        orderSummary.append("<div class=\"item\">\n");
+        orderSummary.append("<br>\n주문 상태 업데이트\n<br>\n<br>\n");
+        orderSummary.append("주문 가게: ").append(cartDTO.getStoreName()).append("\n<br>\n<br>\n");
+
+        orderSummary.append("[ 주문 메뉴 ]<br>\n");
+        for (MenuDTO menuDTO : cartDTO.getOrderList()) {
+            orderSummary.append("- ").append(menuDTO.getName()).append(" (").append(menuDTO.getQuantity()).append("개)<br>\n");
+        }
+
+        orderSummary.append("<br>\n<br>\n");
+        orderSummary.append("주문 총 가격: ").append(cartDTO.getTotalPrice()).append(" 원\n");
+        orderSummary.append("</div>");
+
+        return orderSummary.toString();
     }
 
 }

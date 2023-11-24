@@ -1,6 +1,7 @@
 package com.example.kioskeasepro.entity;
 
 
+import com.example.kioskeasepro.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -24,4 +25,7 @@ public class Order {
     private List<OrderMenu> menuList;
 
     private int totalPrice;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 }
