@@ -18,7 +18,7 @@ public class MenuDirectory {
     @Column(name = "STORE-NAME")
     private String storeName;
 
-    @Column(name = "FILE-TEXT")
+    @Column(name = "FILE-TEXT",length = 1024)
     private String menuText; // 파일안에 들어갈 이름
 
     @Column(name = "FILE-PATH")

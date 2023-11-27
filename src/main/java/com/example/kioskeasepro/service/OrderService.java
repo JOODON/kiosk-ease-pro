@@ -6,7 +6,6 @@ import com.example.kioskeasepro.dto.MenuDTO;
 import com.example.kioskeasepro.entity.Menu;
 import com.example.kioskeasepro.entity.Order;
 import com.example.kioskeasepro.entity.OrderMenu;
-import com.example.kioskeasepro.enums.OrderStatus;
 import com.example.kioskeasepro.repository.MenuRepository;
 import com.example.kioskeasepro.repository.OrderMenuRepository;
 import com.example.kioskeasepro.repository.OrderRepository;
@@ -37,7 +36,6 @@ public class OrderService {
         //주문 정보 객체 선언
         order.setStoreName(cartDTO.getStoreName());
         order.setTotalPrice(cartDTO.getTotalPrice());
-        order.setStatus(OrderStatus.ORDER_RECEIVE);
         //주문 정보 필드 설정
 
         OrderMenu orderMenu = new OrderMenu();
