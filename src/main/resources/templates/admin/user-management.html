@@ -122,7 +122,6 @@
               success: function (response) {
                 // 서버 응답이 성공적으로 돌아오면 해당 행 삭제
                 alert(response);
-                $(this).parent().parent().remove(); // 클릭된 요소의 부모를 삭제
               },
               error: function (error) {
                 console.error('Ajax 요청 중 에러 발생:', error);
