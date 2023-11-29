@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -73,5 +74,14 @@ public class UserService {
         return userDTOList;
     }
 
+    public UserDTO deleteUser(Long id){
+
+        Optional<User> user = userRepository.findById(id);
+
+        user.ifPresent(userRepository::delete);
+
+        return UserDTO.convertToUserDTO(user.get());
+
+    }
 
 }

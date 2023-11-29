@@ -28,4 +28,7 @@ public class User{
     private String gender; // 성별
     
     private String role; //유저 등급
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private UserBusiness userBusiness;
 }

@@ -38,6 +38,17 @@ public class UserDTO {
                 .role(user.getRole())
                 .storeName(storeName)
         .build();
+    }
+    public static UserDTO convertToUserDTO(User user){
 
+        return UserDTO.builder()
+                .id(user.getId())
+                .password(user.getPassword())
+                .username(user.getUsername())
+                .name(user.getName())
+                .gender(user.getGender())
+                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
+                .build();
     }
 }

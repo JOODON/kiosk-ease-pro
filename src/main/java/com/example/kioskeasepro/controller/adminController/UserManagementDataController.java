@@ -30,9 +30,10 @@ public class UserManagementDataController {
 
     @RequestMapping(value = "/deleteUser",method = RequestMethod.POST)
     public ResponseEntity<String> deleteUser(@RequestBody RequestID deleteRequestID){
+        Long id = deleteRequestID.getId();
 
-        System.out.println(deleteRequestID);
+        userService.deleteUser(id);
 
-        return new ResponseEntity<>("삭제가 완료 되었습니다.", HttpStatus.OK);
+        return new ResponseEntity<>("해당 유저가 삭제되었습니다.", HttpStatus.OK);
     }
 }
