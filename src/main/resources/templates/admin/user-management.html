@@ -97,11 +97,37 @@
                       <td>${user.storeName}</td>
                       <td>${user.username}</td>
                       <td>${user.role}</td>
-                      <td><button style="color: white; background-color: rgba(253,17,17,0.83); border: 0">삭제</button></td>
+                      <td><button class="delete-btn" style="color: white; background-color: rgba(253,17,17,0.83); border: 0">삭제</button></td>
                   </tr>
               `;
             $('#userTable').append(row);
           });
+
+          //삭제 부분 구현
+          $(".delete-btn").click(function() {
+
+            // 현재 클릭한 버튼의 부모 요소(td)의 부모 요소(tr)를 찾아서 삭제
+            let id = $(this).closest('td').siblings('td:eq(0)').text();
+
+            let idObj = {
+              id: id
+            }
+
+            $.ajax({
+              type: 'POST',
+              url: '/admin/deleteUser', // 실제 서버 URL로 변경해야 함
+              contentType: "application/json", // 올바른 contentType 설정
+              data: JSON.stringify(idObj), // 객체를 JSON 문자열로 변환
+              success: function (response) {
+                // 서버 응답이 성공적으로 돌아오면 해당 행 삭제
+                $(`tr[data-id="${id}"]`).remove();
+              },
+              error: function (error) {
+                console.error('Ajax 요청 중 에러 발생:', error);
+              }
+            });
+          });
+
         },
         error: function (error) {
           console.log('Ajax 요청 실패:', error);
